@@ -13,7 +13,7 @@
     .err {
       background: var(--c-bg-light);
       padding: 80px 0 120px;
-      min-height: calc(100vh - 644px);
+      min-height: calc(100vh - 84px);
       display: flex;
       align-items: center;
     }
@@ -25,29 +25,42 @@
     }
     .err__tag {
       color: var(--c-red);
-      font-size: 14px;
+      font-size: 20px;
       font-weight: 500;
       letter-spacing: -0.01em;
-      margin: 0 0 18px;
+      margin: 0 0 24px;
     }
     .err__title {
       font-weight: 500;
       font-size: 60px;
       line-height: 1.05;
-      letter-spacing: -0.04em;
+      letter-spacing: -4%;
       margin: 0 0 24px;
     }
     .err__lead {
-      font-size: 16px;
-      color: var(--c-text-muted);
-      line-height: 1.5;
-      margin: 0 0 36px;
-      max-width: 520px;
+      font-size: 18px;
+      color: #7D7E80;
+      line-height: 1.4;
+      margin: 0 0 60px;
+      max-width: 560px;
     }
     .err__img {
       width: 100%;
       max-width: 720px;
       margin: 0 auto;
+    }
+    .err .btn {
+      max-width: 304px;
+      width: 100%;
+      position: relative;
+      padding: 16px;
+      flex-direction: column-reverse;
+      align-items: start;
+    }
+    .err .btn::after {
+      width: 22px;
+      height: 22px;
+      align-self: start;
     }
     @media (max-width: 768px) {
       .err__grid { grid-template-columns: 1fr; gap: 24px; }
@@ -89,13 +102,13 @@
   <div class="container">
     <div class="err__grid">
       <div>
-        <p class="err__tag">► Ошибка 404</p>
+        <p class="err__tag">Ошибка 404</p>
         <h1 class="err__title">Такой страницы<br>не&nbsp;существует ;(</h1>
         <p class="err__lead">Страница, которую вы&nbsp;ищете не&nbsp;существует или не&nbsp;доступна. Вернитесь на&nbsp;главную или воспользуйтесь навигацией сайта.</p>
         <a href="index.html" class="btn">Вернуться на&nbsp;главную</a>
       </div>
       <div>
-        <img class="err__img" src="assets/img/container-404.jpg" alt="">
+        <img class="err__img" src="assets/img/container-404.png" alt="">
       </div>
     </div>
   </div>
@@ -104,32 +117,45 @@
 <footer class="site-footer">
   <div class="container">
     <div class="site-footer__top">
-      <h2 class="site-footer__title">
-        <span>Свяжитесь</span>
-        <span class="row2"><span class="ico"><img src="assets/icons/chat-bubble.svg" alt=""></span><span>с&nbsp;нами</span></span>
-      </h2>
-      <div class="site-footer__col">
-        <div class="row"><h3>Телефон:</h3><a href="tel:+73833121222">+7 (383) 312-12-22</a></div>
-        <div class="row"><h3>E-mail:</h3><a href="mailto:main@tk-komtrans.ru">main@tk-komtrans.ru</a></div>
+      <div class="site-footer__left">
+        <h2 class="site-footer__title">
+          <span>Свяжитесь</span>
+          <span class="row2"><span class="ico"><img src="assets/icons/chat-bubble.svg" alt=""></span><span>с&nbsp;нами</span></span>
+        </h2>
       </div>
-      <div class="site-footer__col">
-        <div class="row">
-          <h3>Мессенджеры:</h3>
-          <div class="messengers">
-            <a href="https://t.me/" target="_blank" rel="noopener">Telegram</a>
-            <a href="https://wa.me/" target="_blank" rel="noopener">WhatsApp</a>
+      <div class="site-footer__right">
+        <div class="site-footer__col">
+          <div class="row">
+            <h3>Телефон:</h3>
+            <a href="tel:+73833121222">+7 (383) 312-12-22</a>
+          </div>
+          <div class="row">
+            <h3>E-mail:</h3>
+            <a href="mailto:main@tk-komtrans.ru">main@tk-komtrans.ru</a>
           </div>
         </div>
-        <div class="row"><h3>Адрес:</h3><p>630005, г.&nbsp;Новосибирск,<br>ул.&nbsp;Фрунзе, д.&nbsp;88, офис 807</p></div>
-      </div>
-      <div class="site-footer__cta">
-        <button class="btn btn--block btn--footer" data-modal="call">Оставить заявку</button>
+        <div class="site-footer__col">
+          <div class="row">
+            <h3>Мессенджеры:</h3>
+            <div class="messengers">
+              <a href="https://t.me/" target="_blank" rel="noopener">Telegram</a>
+              <a href="https://wa.me/" target="_blank" rel="noopener">WhatsApp</a>
+            </div>
+          </div>
+          <div class="row">
+            <h3>Адрес:</h3>
+            <a href="https://yandex.ru/maps/" target="_blank" rel="noopener" class="address-link">630005, г.&nbsp;Новосибирск,<br>ул.&nbsp;Фрунзе, д.&nbsp;88, офис 807</a>
+          </div>
+        </div>
+        <div class="site-footer__cta">
+          <button class="btn btn--block btn--footer" data-modal="call">Оставить заявку</button>
+        </div>
       </div>
     </div>
     <div class="site-footer__bottom">
       <span>© 2026 ООО «КомТранс». Все авторские права защищены.</span>
       <a href="privacy.html">Политика конфиденциальности</a>
-      <span class="site-footer__made">Сделано в <span class="ruso">RUSO</span></span>
+      <span class="site-footer__made">Сделано в <span class="ruso"><a href="#" target="_blank" rel="noopener"><img src="./assets/icons/ruso.svg" alt=""></a></span></span>
     </div>
   </div>
 </footer>

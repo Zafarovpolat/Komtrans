@@ -10,27 +10,26 @@
   <link rel="stylesheet" href="css/popups.css">
   <link rel="stylesheet" href="css/responsive.css">
   <style>
-    .privacy { background: var(--c-bg-light); padding: 80px 0 120px; }
+    .privacy { background: var(--c-bg-light); padding: 80px 0 160px; color: #1C1C1C; }
     .privacy h1 {
       font-weight: 500;
-      font-size: 60px;
-      line-height: 1.05;
-      letter-spacing: -0.04em;
-      margin: 0 0 56px;
+      font-size: 72px;
+      line-height: 1;
+      letter-spacing: -5%;
+      margin: 0 0 60px;
     }
     .privacy h2 {
       font-weight: 500;
-      font-size: 18px;
+      font-size: 20px;
+      line-height: 1.2;
       letter-spacing: -0.02em;
-      margin: 32px 0 16px;
+      margin: 0 0 10px;
     }
     .privacy p, .privacy li {
-      font-size: 15px;
-      line-height: 1.65;
-      color: var(--c-text);
-      letter-spacing: -0.005em;
-      margin: 0 0 14px;
-      max-width: 1100px;
+      font-size: 18px;
+      line-height: 1.4;
+      letter-spacing: -2%;
+      max-width: 1008px;
     }
     @media (max-width: 768px) {
       .privacy h1 { font-size: 30px; margin-bottom: 24px; }
@@ -84,32 +83,45 @@
 <footer class="site-footer">
   <div class="container">
     <div class="site-footer__top">
-      <h2 class="site-footer__title">
-        <span>Свяжитесь</span>
-        <span class="row2"><span class="ico"><img src="assets/icons/chat-bubble.svg" alt=""></span><span>с&nbsp;нами</span></span>
-      </h2>
-      <div class="site-footer__col">
-        <div class="row"><h3>Телефон:</h3><a href="tel:+73833121222">+7 (383) 312-12-22</a></div>
-        <div class="row"><h3>E-mail:</h3><a href="mailto:main@tk-komtrans.ru">main@tk-komtrans.ru</a></div>
+      <div class="site-footer__left">
+        <h2 class="site-footer__title">
+          <span>Свяжитесь</span>
+          <span class="row2"><span class="ico"><img src="assets/icons/chat-bubble.svg" alt=""></span><span>с&nbsp;нами</span></span>
+        </h2>
       </div>
-      <div class="site-footer__col">
-        <div class="row">
-          <h3>Мессенджеры:</h3>
-          <div class="messengers">
-            <a href="https://t.me/" target="_blank" rel="noopener">Telegram</a>
-            <a href="https://wa.me/" target="_blank" rel="noopener">WhatsApp</a>
+      <div class="site-footer__right">
+        <div class="site-footer__col">
+          <div class="row">
+            <h3>Телефон:</h3>
+            <a href="tel:+73833121222">+7 (383) 312-12-22</a>
+          </div>
+          <div class="row">
+            <h3>E-mail:</h3>
+            <a href="mailto:main@tk-komtrans.ru">main@tk-komtrans.ru</a>
           </div>
         </div>
-        <div class="row"><h3>Адрес:</h3><p>630005, г.&nbsp;Новосибирск,<br>ул.&nbsp;Фрунзе, д.&nbsp;88, офис 807</p></div>
-      </div>
-      <div class="site-footer__cta">
-        <button class="btn btn--block btn--footer" data-modal="call">Оставить заявку</button>
+        <div class="site-footer__col">
+          <div class="row">
+            <h3>Мессенджеры:</h3>
+            <div class="messengers">
+              <a href="https://t.me/" target="_blank" rel="noopener">Telegram</a>
+              <a href="https://wa.me/" target="_blank" rel="noopener">WhatsApp</a>
+            </div>
+          </div>
+          <div class="row">
+            <h3>Адрес:</h3>
+            <a href="https://yandex.ru/maps/" target="_blank" rel="noopener" class="address-link">630005, г.&nbsp;Новосибирск,<br>ул.&nbsp;Фрунзе, д.&nbsp;88, офис 807</a>
+          </div>
+        </div>
+        <div class="site-footer__cta">
+          <button class="btn btn--block btn--footer" data-modal="call">Оставить заявку</button>
+        </div>
       </div>
     </div>
     <div class="site-footer__bottom">
       <span>© 2026 ООО «КомТранс». Все авторские права защищены.</span>
       <a href="privacy.html">Политика конфиденциальности</a>
-      <span class="site-footer__made">Сделано в <span class="ruso">RUSO</span></span>
+      <span class="site-footer__made">Сделано в <span class="ruso"><a href="#" target="_blank" rel="noopener"><img src="./assets/icons/ruso.svg" alt=""></a></span></span>
     </div>
   </div>
 </footer>
