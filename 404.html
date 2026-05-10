@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Страница не найдена — КомТранс Азия</title>
+  <link rel="icon" type="image/svg+xml" href="assets/icons/favicon.svg">
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/sections.css">
+  <link rel="stylesheet" href="css/popups.css">
+  <link rel="stylesheet" href="css/responsive.css">
+  <style>
+    .err {
+      background: var(--c-bg-light);
+      padding: 80px 0 120px;
+      min-height: calc(100vh - 644px);
+      display: flex;
+      align-items: center;
+    }
+    .err__grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+    .err__tag {
+      color: var(--c-red);
+      font-size: 14px;
+      font-weight: 500;
+      letter-spacing: -0.01em;
+      margin: 0 0 18px;
+    }
+    .err__title {
+      font-weight: 500;
+      font-size: 60px;
+      line-height: 1.05;
+      letter-spacing: -0.04em;
+      margin: 0 0 24px;
+    }
+    .err__lead {
+      font-size: 16px;
+      color: var(--c-text-muted);
+      line-height: 1.5;
+      margin: 0 0 36px;
+      max-width: 520px;
+    }
+    .err__img {
+      width: 100%;
+      max-width: 720px;
+      margin: 0 auto;
+    }
+    @media (max-width: 768px) {
+      .err__grid { grid-template-columns: 1fr; gap: 24px; }
+      .err__title { font-size: 32px; }
+      .err__img { max-width: 100%; }
+    }
+  </style>
+</head>
+<body>
+
+<header class="site-header site-header--light">
+  <div class="container">
+    <div class="site-header__row">
+      <a class="site-header__logo" href="/" aria-label="КомТранс Азия">
+        <img src="assets/icons/logo-dark.svg" alt="КомТранс Азия" width="178" height="40">
+      </a>
+      <nav class="site-header__nav desktop-only">
+        <a href="index.html#types">Типы грузов</a>
+        <a href="index.html#routes">Маршруты и сроки</a>
+        <a href="index.html#features">Преимущества</a>
+        <a href="index.html#numbers">Мы в цифрах</a>
+        <a href="#" class="has-dd">Ещё</a>
+      </nav>
+      <div class="site-header__phone desktop-only">
+        <a class="phone-num" href="tel:+79232252229" style="color: var(--c-text);">+7 (923) 225-22-29</a>
+        <div class="phone-msg" style="color: var(--c-text-muted);">
+          <a href="https://t.me/" target="_blank" rel="noopener">Telegram</a>
+          <a href="https://wa.me/" target="_blank" rel="noopener">WhatsApp</a>
+        </div>
+      </div>
+      <button class="site-header__cta desktop-only" data-modal="call">Заказать звонок</button>
+      <button class="site-header__cta-mobile mobile-only" data-modal="call" aria-label="Позвонить"></button>
+      <button class="site-header__menu-btn mobile-only" data-modal="menu" aria-label="Меню" style="color: var(--c-text);"></button>
+    </div>
+  </div>
+</header>
+
+<section class="err">
+  <div class="container">
+    <div class="err__grid">
+      <div>
+        <p class="err__tag">► Ошибка 404</p>
+        <h1 class="err__title">Такой страницы<br>не&nbsp;существует ;(</h1>
+        <p class="err__lead">Страница, которую вы&nbsp;ищете не&nbsp;существует или не&nbsp;доступна. Вернитесь на&nbsp;главную или воспользуйтесь навигацией сайта.</p>
+        <a href="index.html" class="btn">Вернуться на&nbsp;главную</a>
+      </div>
+      <div>
+        <img class="err__img" src="assets/img/container-404.jpg" alt="">
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="site-footer__top">
+      <h2 class="site-footer__title">
+        <span>Свяжитесь</span>
+        <span class="row2"><span class="ico"><img src="assets/icons/chat-bubble.svg" alt=""></span><span>с&nbsp;нами</span></span>
+      </h2>
+      <div class="site-footer__col">
+        <div class="row"><h3>Телефон:</h3><a href="tel:+73833121222">+7 (383) 312-12-22</a></div>
+        <div class="row"><h3>E-mail:</h3><a href="mailto:main@tk-komtrans.ru">main@tk-komtrans.ru</a></div>
+      </div>
+      <div class="site-footer__col">
+        <div class="row">
+          <h3>Мессенджеры:</h3>
+          <div class="messengers">
+            <a href="https://t.me/" target="_blank" rel="noopener">Telegram</a>
+            <a href="https://wa.me/" target="_blank" rel="noopener">WhatsApp</a>
+          </div>
+        </div>
+        <div class="row"><h3>Адрес:</h3><p>630005, г.&nbsp;Новосибирск,<br>ул.&nbsp;Фрунзе, д.&nbsp;88, офис 807</p></div>
+      </div>
+      <div class="site-footer__cta">
+        <button class="btn btn--block btn--footer" data-modal="call">Оставить заявку</button>
+      </div>
+    </div>
+    <div class="site-footer__bottom">
+      <span>© 2026 ООО «КомТранс». Все авторские права защищены.</span>
+      <a href="privacy.html">Политика конфиденциальности</a>
+      <span class="site-footer__made">Сделано в <span class="ruso">RUSO</span></span>
+    </div>
+  </div>
+</footer>
+
+<!-- Call modal (reused) -->
+<div class="modal" id="modal-call" role="dialog" aria-modal="true">
+  <div class="modal__overlay" data-close></div>
+  <div class="modal__dialog">
+    <button class="modal__close" data-close aria-label="Закрыть"><img src="assets/icons/x-mark.svg" alt=""></button>
+    <h2 class="modal__title">Заказать звонок</h2>
+    <p class="modal__lead">Оставьте контакт и&nbsp;наш менеджер свяжется с&nbsp;вами в&nbsp;ближайшие 30&nbsp;минут и&nbsp;ответит на&nbsp;все вопросы.</p>
+    <form class="modal-form" data-form>
+      <div class="field"><input type="text" placeholder="Ваше имя" required></div>
+      <div class="field"><input type="email" placeholder="Ваш e-mail"></div>
+      <div class="field"><input type="tel" placeholder="+7 (___) ___-__-__" required></div>
+      <label class="agreement">
+        <input type="checkbox" checked><span class="check"></span>
+        <span>Я&nbsp;даю согласие на&nbsp;<a href="privacy.html">обработку персональных данных</a></span>
+      </label>
+      <button type="submit" class="btn">Заказать звонок</button>
+    </form>
+  </div>
+</div>
+
+<div class="modal modal--thx" id="modal-thx" role="dialog" aria-modal="true">
+  <div class="modal__overlay" data-close></div>
+  <div class="modal__dialog">
+    <button class="modal__close" data-close aria-label="Закрыть"><img src="assets/icons/x-mark.svg" alt=""></button>
+    <div class="thx-icons">
+      <span class="pic" style="background-image: url('assets/img/portfolio-1.jpg');"></span>
+      <span class="check-pill"></span>
+    </div>
+    <h2 class="modal__title">Спасибо! Мы&nbsp;получили ваше сообщение.</h2>
+    <p>Наш менеджер свяжется с&nbsp;вами в&nbsp;ближайшие 30&nbsp;минут.</p>
+    <a href="index.html" class="btn">Вернуться на&nbsp;главную</a>
+  </div>
+</div>
+
+<div class="modal modal--menu" id="modal-menu" role="dialog" aria-modal="true">
+  <div class="modal__overlay" data-close></div>
+  <div class="modal__dialog">
+    <button class="modal__close" data-close aria-label="Закрыть"><img src="assets/icons/x-mark.svg" alt=""></button>
+    <nav class="menu-list">
+      <a href="index.html#types" data-close>Типы грузов</a>
+      <a href="index.html#routes" data-close>Маршруты и сроки</a>
+      <a href="index.html#features" data-close>Преимущества</a>
+      <a href="index.html#numbers" data-close>Мы в цифрах</a>
+      <a href="index.html" data-close>На главную</a>
+    </nav>
+  </div>
+</div>
+
+<script src="js/main.js"></script>
+</body>
+</html>

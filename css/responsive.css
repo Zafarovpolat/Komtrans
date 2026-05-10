@@ -1,0 +1,242 @@
+/* ==========================================================================
+   Responsive: tablet & mobile
+   ========================================================================== */
+
+/* tablet adjustments */
+@media (max-width: 1280px) {
+  :root { --container: 100%; --gutter: 28px; }
+  .hero__metrics { grid-template-columns: 1fr 1fr; }
+  .features__grid { grid-template-columns: 1fr; }
+  .features__visual { height: 480px; }
+  .calc__inner { grid-template-columns: 1fr; gap: 40px; padding: 40px; }
+  .calculator-widget { width: 100%; max-width: 560px; }
+  .steps__grid { grid-template-columns: 1fr; gap: 40px; }
+  .faq__grid { grid-template-columns: 1fr; gap: 40px; }
+  .reviews__grid { grid-template-columns: 1fr 1fr; }
+  .types__grid { grid-template-columns: 1fr 1fr; }
+  .type-card { border-right: 1px solid var(--c-border) !important; }
+  .type-card:nth-child(2n) { border-right: 0 !important; }
+  .garant-card--empty {
+    display: none !important;
+  }
+  .garant__left {
+    grid-column: 1 / -1;
+    padding-right: 0;
+    margin-bottom: 32px;
+  }
+  .garant__bg {
+    left: -28px;
+    top: 240px; /* offset the title block */
+  }
+  .garant__grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+  .site-footer__top { grid-template-columns: 1fr; gap: 40px; }
+  .hero__title { font-size: 56px; }
+  .section-title, .calc__title, .routes__title, .garant__title, .site-footer__title { font-size: 48px; }
+}
+
+/* mobile */
+@media (max-width: 768px) {
+  :root { --container: 100%; --gutter: 16px; }
+
+  /* Header */
+  .site-header { padding: 14px 0; }
+  .site-header__row {
+    grid-template-columns: auto 1fr auto auto;
+    gap: 12px;
+  }
+  .site-header__nav, .site-header__phone .phone-msg { display: none; }
+  .site-header__phone .phone-num { font-size: 0; }
+  .site-header__phone .phone-num::before { width: 22px; height: 22px; }
+  .site-header__cta { display: none; }
+  .site-header__menu-btn {
+    display: inline-flex !important;
+    width: 40px; height: 40px;
+    align-items: center; justify-content: center;
+  }
+  .site-header__menu-btn::before {
+    content: "";
+    width: 20px; height: 14px;
+    background-image:
+      linear-gradient(currentColor, currentColor),
+      linear-gradient(currentColor, currentColor),
+      linear-gradient(currentColor, currentColor);
+    background-size: 100% 2px, 100% 2px, 100% 2px;
+    background-position: 0 0, 0 50%, 0 100%;
+    background-repeat: no-repeat;
+  }
+  .site-header__cta-mobile {
+    display: inline-flex !important;
+    width: 44px; height: 44px;
+    background: var(--c-red);
+    align-items: center; justify-content: center;
+    color: #fff;
+  }
+  .site-header__cta-mobile::before {
+    content: "";
+    width: 18px; height: 18px;
+    background: url('../assets/icons/phone.svg') center/contain no-repeat;
+    filter: brightness(0) invert(1);
+  }
+
+  /* Hero */
+  .hero { min-height: auto; padding-bottom: 0; }
+  .hero__content { padding: 100px 0 40px; max-width: 100%; }
+  .hero__title { font-size: 32px; line-height: 1.05; }
+  .hero__title .flag { width: 24px; height: 24px; vertical-align: -4px; }
+  .hero__title .flag::after { font-size: 14px; }
+  .hero__lead { font-size: 14px; margin-bottom: 32px; }
+  .hero__metrics {
+    grid-template-columns: 1fr 1fr;
+    margin-bottom: 0;
+    border-top: 0;
+  }
+  .hero__calc {
+    grid-column: 1 / -1;
+    grid-row: 1;
+    flex-direction: row;
+    align-items: stretch;
+    padding: 22px 16px;
+    min-height: 100px;
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 24px 100%, 0 calc(100% - 24px));
+  }
+  .hero__calc-link { font-size: 14px; align-self: flex-end; }
+  .hero__metric {
+    padding: 20px 16px;
+    border-left: 1px solid rgba(255,255,255,.18);
+    border-top: 1px solid rgba(255,255,255,.18);
+    min-height: 120px;
+    gap: 16px;
+  }
+  .hero__metric-num { font-size: 36px; }
+  .hero__metric-num .unit { font-size: 12px; }
+  .hero__metric-label { font-size: 12px; }
+
+  /* Sections base */
+  section, .types, .features, .numbers, .calc, .steps, .garant, .portfolio, .reviews, .faq {
+    padding: 60px 0 !important;
+  }
+  .section-title, .calc__title, .routes__title, .garant__title, .site-footer__title {
+    font-size: 26px !important;
+    letter-spacing: -0.03em !important;
+  }
+
+  /* Types */
+  .types__top { grid-template-columns: 1fr; gap: 16px; margin-bottom: 32px; }
+  .types__media { height: 260px; background-size: contain; background-position: left center; }
+  .types__heading h2 { font-size: 26px; }
+  .types__grid { grid-template-columns: 1fr; border-top: 1px solid var(--c-border); }
+  .type-card { border-right: 0 !important; padding: 24px 0; min-height: auto; }
+  .type-card:nth-child(2n) { border-right: 0 !important; }
+
+  /* Routes */
+  .routes { padding: 60px 0 0 !important; }
+  .routes__title { font-size: 26px !important; margin-bottom: 32px; }
+  .routes__title .pill { width: 28px; height: 28px; vertical-align: -4px; }
+  .routes__title .pill svg { width: 14px; height: 14px; }
+  .routes__row {
+    grid-template-columns: 40px 1fr;
+    grid-template-rows: auto auto auto;
+    grid-template-areas: "cc path" "cc time" "cc go";
+    gap: 8px 16px;
+    padding: 16px 16px;
+  }
+  .routes__cc { grid-area: cc; align-self: start; }
+  .routes__path { grid-area: path; }
+  .routes__time { grid-area: time; }
+  .routes__go { grid-area: go; justify-self: end; width: 36px; height: 36px; }
+  .routes__path-line { font-size: 14px; }
+
+  /* Features */
+  .features__head { grid-template-columns: 1fr; gap: 16px; }
+  .features__visual { height: 280px; padding: 16px; }
+  .features__visual h3 { font-size: 20px; }
+  .feature-row { padding: 20px 0; gap: 14px; grid-template-columns: 32px 1fr; }
+  .feature-row__num::before { top: 5px; }
+  .feature-row__content h3 { font-size: 18px; }
+
+  /* Numbers */
+  .numbers__grid { grid-template-columns: 1fr; }
+  .num-card { padding: 28px 0 !important; border-right: 0 !important; }
+  .num-card__big { font-size: 48px; margin-bottom: 8px; }
+
+  /* Calculator */
+  .calc__inner { padding: 28px 16px; min-height: auto; }
+  .calc__title { font-size: 26px !important; }
+  .calc__title .pill { width: 32px; height: 32px; vertical-align: -4px; }
+  .calculator-widget { padding: 24px 18px; }
+  .calculator-widget__title { font-size: 18px; }
+
+  /* Steps */
+  .step-item { grid-template-columns: 30px 1fr; gap: 12px; padding: 18px 0; }
+  .step-item__body h3 { font-size: 18px; }
+
+  /* Garant */
+  .garant {
+    padding: 60px 0 !important;
+  }
+  .garant__left {
+    margin-bottom: 30px;
+  }
+  .garant__bg {
+    left: -16px;
+    top: 180px;
+  }
+  .garant__grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  .garant-card { min-height: auto; padding: 24px; }
+
+  /* Portfolio */
+  .portfolio__head { flex-direction: column; gap: 24px; align-items: flex-start; }
+  .portfolio__grid { grid-template-columns: 1fr; }
+  .case-card { height: 280px; }
+
+  /* Reviews */
+  .reviews__head { flex-direction: column; gap: 16px; align-items: flex-start; }
+  .reviews__grid { grid-template-columns: 1fr; }
+  .review-card { padding: 0; }
+
+  /* FAQ */
+  .faq__grid { grid-template-columns: 1fr; gap: 28px; }
+  .faq__cta { width: 100%; padding: 24px; }
+  .faq-item__q { font-size: 16px; }
+
+  /* Footer */
+  .site-footer { padding: 60px 0 28px; }
+  .site-footer__title { font-size: 36px; }
+  .site-footer__right { grid-template-columns: 1fr; gap: 32px; }
+  .site-footer__cta .btn { padding: 22px 18px; font-size: 14px; }
+  .site-footer__bottom {
+    flex-direction: column;
+    gap: 16px;
+    align-items: flex-start;
+  }
+
+  /* Hide / show mobile-only */
+  .desktop-only { display: none !important; }
+  .mobile-only { display: block !important; }
+
+  /* Modals */
+  .modal { padding: 0; align-items: stretch; }
+  .modal__dialog {
+    max-width: 100%;
+    max-height: 100vh;
+    overflow-y: auto;
+    padding: 24px 18px;
+  }
+  .modal--portfolio .pf-grid { grid-template-columns: 1fr; }
+}
+
+/* Default visibility helpers */
+.mobile-only { display: none; }
+.site-header__menu-btn,
+.site-header__cta-mobile { display: none; }
+
+/* Print-friendly tweaks */
+@media print {
+  .site-header, .site-footer, .modal, .carousel-nav { display: none; }
+}
