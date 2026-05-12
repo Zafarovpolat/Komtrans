@@ -4,7 +4,7 @@
 
 /* ---------- Section: Features (Преимущества) ---------- */
 .features {
-  background: var(--c-bg-light);
+  background: var(--c-bg-grey);
   padding: 100px 0;
 }
 .features__head {
@@ -88,7 +88,7 @@
   margin: 0;
 }
 .features__list {
-  background: var(--c-bg-light);
+  background: var(--c-bg-grey);
   display: flex;
   flex-direction: column;
 }
@@ -144,7 +144,7 @@
 
 /* ---------- Section: Numbers (Мы в цифрах) ---------- */
 .numbers {
-  background: var(--c-bg-light);
+  background: var(--c-bg-grey);
   padding: 80px 0 0;
 }
 .numbers .section-tag {
@@ -214,7 +214,7 @@
 
 /* ---------- Section: Calculator block ---------- */
 .calc {
-  background: var(--c-bg-light);
+  background: var(--c-bg-grey);
   padding: 0 0 196px;
 }
 .calc__inner {
@@ -403,7 +403,7 @@
 
 /* ---------- Steps (Порядок работы) ---------- */
 .steps {
-  background: var(--c-bg-light);
+  background: var(--c-bg-grey);
   padding: 100px 0 0;
   margin-bottom: 80px;
 }
@@ -495,7 +495,7 @@
 /* ---------- Garant section ---------- */
 .garant {
   position: relative;
-  background: var(--c-bg-light);
+  background: var(--c-bg-grey);
   color: var(--c-text);
   padding: 102px 0 100px;
   overflow: hidden;
@@ -618,7 +618,7 @@ font-size: 18px;
 
 /* ---------- Portfolio ---------- */
 .portfolio {
-  background: var(--c-bg-light);
+  background: var(--c-bg-grey);
   padding: 0 0 80px;
 }
 .portfolio .section-tag {
@@ -659,9 +659,17 @@ font-size: 18px;
   height: 16px;
 }
 
-.portfolio__grid {
+.carousel-wrap {
+  overflow: hidden;
+}
+.carousel-track {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform;
+}
+
+.portfolio__grid {
+  grid-template-columns: repeat(4, 50%);
 }
 .case-card {
   position: relative;
@@ -764,7 +772,7 @@ font-size: 18px;
 
 /* ---------- Reviews ---------- */
 .reviews {
-  background: var(--c-bg-light);
+  background: var(--c-bg-grey);
   padding: 80px 0;
 }
 .reviews__section-tag {
@@ -780,22 +788,20 @@ font-size: 18px;
   margin-bottom: 0;
 }
 .reviews__grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(3, calc(100% / 3));
   gap: 0;
 }
 .review-card {
   padding: 32px 36px;
   border: 1px solid #E0DFDE;
+  border-left: none; /* JS restores border-left on the first visible card only */
   background: transparent;
   display: flex;
   flex-direction: column;
   gap: 24px;
   cursor: pointer;
 }
-.review-card:nth-child(2),.review-card:nth-child(3){
-  border-left: none;
-}
+/* border-left removed — infinite clone carousel breaks nth-child selectors */
 .review-card__head {
   display: flex;
   align-items: center;
@@ -819,14 +825,13 @@ font-size: 18px;
   display: inline-flex;
   align-items: center;
   gap: 4px;
-  font-size: 14px;
-  color: var(--c-text);
+  font-size: 18px;
+  color: var(--c-red);
 }
 .review-card__rating::before {
   content: "★";
   color: var(--c-red);
-  font-size: 14px;
-  line-height: 1;
+  font-size: 24px;
 }
 .review-card__role {
   font-size: 16px;
@@ -850,7 +855,7 @@ font-size: 18px;
 
 /* ---------- FAQ ---------- */
 .faq {
-  background: var(--c-bg-light);
+  background: var(--c-bg-grey);
   padding: 80px 0 160px;
 }
 .faq.section-tag {
@@ -869,15 +874,14 @@ font-size: 18px;
   margin: 0;
   font-size: 48px;
 }
-.faq__spacer {
-  flex: 1 1 auto;
-}
+
 .faq__cta {
   background: var(--c-red);
   color: #fff;
   padding: 28px 32px;
   width: 360px;
   position: relative;
+  margin-top: 195px;
   /* bottom-right cut */
   clip-path: polygon(
     0 0,

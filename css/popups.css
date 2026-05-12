@@ -22,7 +22,7 @@
   background: #fff;
   width: 100%;
   max-width: 560px;
-  padding: 36px 32px 32px;
+  padding: 40px;
   z-index: 1;
   animation: modalIn .22s ease;
 }
@@ -32,7 +32,7 @@
 }
 .modal__close {
   position: absolute;
-  top: 24px; right: 24px;
+  top: 16px; right: 16px;
   width: 24px; height: 24px;
   display: inline-flex;
   align-items: center;
@@ -42,22 +42,25 @@
 .modal__close svg { width: 14px; height: 14px; }
 .modal__title {
   font-weight: 500;
-  font-size: 24px;
+  font-size: 32px;
   line-height: 1.2;
   letter-spacing: -0.04em;
-  margin: 0 0 12px;
+  margin: 0 0 8px;
 }
 .modal__lead {
-  font-size: 14px;
+  font-size: 18px;
   color: var(--c-text-muted);
-  line-height: 1.5;
-  margin: 0 0 24px;
+  line-height: 1.4;
+  margin: 0 0 8px;
 }
-
+.modal-form .field:nth-child(1) {
+  margin-top: 24px;
+}
 .modal-form { display: flex; flex-direction: column; gap: 0; }
 .modal-form .field {
   border-bottom: 1px solid var(--c-border-light);
-  padding: 14px 0 8px;
+  padding: 0 0 16px;
+  margin-top: 20px;
 }
 .modal-form .field input,
 .modal-form .field textarea {
@@ -66,14 +69,16 @@
   border: 0;
   outline: none;
   padding: 0;
-  font-size: 16px;
+  font-size: 18px;
   color: var(--c-text);
   letter-spacing: -0.01em;
+  line-height: 1.4;
 }
 .modal-form .field textarea {
   resize: none;
-  min-height: 60px;
+  min-height: 116px;
   font-family: inherit;
+  display: block;
 }
 .modal-form .field input::placeholder,
 .modal-form .field textarea::placeholder {
@@ -83,49 +88,112 @@
 .modal-form .agreement {
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
   gap: 12px;
-  font-size: 14px;
+  font-size: 16px;
+  line-height: 1.4;
   color: var(--c-text-muted);
-  margin: 22px 0 14px;
+  margin: 20px 0 24px;
+  cursor: pointer;
+  user-select: none;
 }
 .modal-form .agreement input { display: none; }
 .modal-form .agreement .check {
-  width: 16px; height: 16px;
-  background: var(--c-red);
+  width: 22px; height: 22px;
+  background: transparent;
+  border: 1.5px solid #C0BFBE;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  flex: 0 0 16px;
+  flex: 0 0 22px;
 }
 .modal-form .agreement .check::before {
   content: "";
-  width: 10px; height: 7px;
-  background: url('../assets/icons/check.svg') center/contain no-repeat;
-  filter: brightness(0) invert(1);
+  width: 7px; height: 12px;
+  border-right: 3.5px solid #F5A623;
+  border-bottom: 3.5px solid #F5A623;
+  transform: rotate(45deg) translate(-1px, -1px);
+  opacity: 0;
+  transition: opacity 0.15s;
+}
+.modal-form .agreement input:checked ~ .check::before {
+  opacity: 1;
 }
 .modal-form .agreement a {
-  color: var(--c-red);
-  border-bottom: 1px dashed var(--c-red);
-  padding-bottom: 1px;
+  color: var(--c-text-muted);
+  border-bottom: 1px solid var(--c-text-muted);
+  cursor: pointer;
 }
-.modal-form .btn { width: 100%; padding: 22px 28px; }
+.modal-form .btn { width: 100%; 
+  padding: 44px 16px 16px; 
+  font-size: 18px; 
+  position: relative; 
+  justify-content: start; 
+}
+.modal-form .btn::after {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 24px;
+  height: 24px;
+}
+
+/* Validation error states */
+.modal-form .field.has-error {
+  border-bottom-color: #e03d2f;
+}
+.modal-form .field.has-error input,
+.modal-form .field.has-error textarea {
+  color: var(--c-text);
+}
+.field-error {
+  display: block;
+  font-size: 12px;
+  color: #e03d2f;
+  margin-top: 4px;
+  line-height: 1.3;
+}
+.modal-form .agreement.has-error {
+  color: #e03d2f;
+}
+.modal-form .agreement.has-error .check {
+  border-color: #e03d2f;
+}
+.modal-form .agreement .field-error {
+  display: block;
+  width: 100%;
+  margin-top: 4px;
+  font-size: 12px;
+  color: #e03d2f;
+}
+/* Shake animation on first invalid submit */
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20%, 60% { transform: translateX(-4px); }
+  40%, 80% { transform: translateX(4px); }
+}
+.field.has-error input,
+.field.has-error textarea {
+  animation: shake 0.35s ease;
+}
+
 
 /* Thanks (thx) modal */
 .modal--thx .thx-icons {
   position: relative;
-  width: 100px; height: 60px;
-  margin-bottom: 22px;
+  width: 100px; height: 80px;
+  margin-bottom: 40px;
 }
 .modal--thx .thx-icons .pic {
   position: absolute;
-  width: 60px; height: 60px;
+  width: 80px; height: 80px;
   border-radius: 50%;
   background: var(--c-divider) center/cover no-repeat;
 }
 .modal--thx .thx-icons .check-pill {
   position: absolute;
-  left: 40px; top: 0;
-  width: 60px; height: 60px;
+  left: 60px; top: 0;
+  width: 80px; height: 80px;
   border-radius: 50%;
   background: var(--c-red);
   display: inline-flex;
@@ -138,30 +206,136 @@
   background: url('../assets/icons/check.svg') center/contain no-repeat;
   filter: brightness(0) invert(1);
 }
-.modal--thx .modal__title { margin-bottom: 16px; }
 .modal--thx p {
-  font-size: 14px;
+  font-size: 18px;
   color: var(--c-text-muted);
-  line-height: 1.5;
+  letter-spacing: -2%;
+  line-height: 1.4;
   margin: 0 0 24px;
 }
+.modal--thx .btn {
+  display: block;
+  width: 100%;
+  padding: 44px 16px 16px;
+  font-size: 18px;
+  position: relative;
+  justify-content: start;
+  text-align: left;
+}
+.modal--thx .btn::after {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 24px;
+  height: 24px;
+}
 
-/* Calculator popup */
-.modal--calculator .calculator-widget {
-  width: auto;
+/* Step navigation */
+.calc-nav {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 24px;
+}
+.calc-nav--single .calc-next-btn { grid-column: 1 / -1; }
+.calc-prev-btn {
+  background: transparent;
+  border: 0;
+  padding: 16px;
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--c-text-muted);
+  cursor: pointer;
+  text-align: left;
+  font-family: inherit;
+  display: flex;
+  align-items: end;
+  justify-content: start;
+  transition: color 0.15s;
+  border: 1px solid #E0DFDE;
+}
+.calc-prev-btn:disabled { opacity: 0.35; cursor: default; }
+.calc-nav .btn {
+  width: 100%;
+  padding: 44px 16px 16px;
+  font-size: 18px;
+  position: relative;
+  justify-content: start;
+}
+.calc-nav .btn::after {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 24px;
+  height: 24px;
+}
+
+/* Progress bar update */
+.calc-progress span { transition: background 0.2s; }
+
+/* Final step */
+.calc-final-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  font-size: 13px;
+}
+.calc-restart {
+  background: transparent;
+  border: 0;
   padding: 0;
-  position: static;
+  font-size: 13px;
+  color: var(--c-text-muted);
+  cursor: pointer;
+  font-family: inherit;
+  transition: color 0.15s;
+}
+.calc-restart:hover { color: var(--c-text); }
+.calc-done-label { color: var(--c-red); font-weight: 500; }
+.calc-final-title {
+  font-size: 26px;
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: -0.03em;
+  margin: 0 0 10px;
+}
+.calc-final-lead {
+  font-size: 15px;
+  color: var(--c-text-muted);
+  line-height: 1.5;
+  margin: 0 0 4px;
+}
+.calc-step--final .modal-form .btn {
+  width: 100%;
+  padding: 44px 16px 16px;
+  font-size: 18px;
+  position: relative;
+  justify-content: start;
+}
+.calc-step--final .modal-form .btn::after {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 24px;
+  height: 24px;
 }
 
 /* Portfolio popup */
 .modal--portfolio .modal__dialog {
   max-width: 1120px;
-  padding: 24px;
+  padding: 0;
 }
 .modal--portfolio .pf-grid {
   display: grid;
   grid-template-columns: 1.4fr 1fr;
-  gap: 24px;
+}
+.modal--portfolio .pf-grid > div:nth-child(1) {
+  padding: 40px 20px 10px;
+  background-color: #F4F3F2;
+}
+.modal--portfolio .pf-grid > div:nth-child(2) {
+  padding: 40px;
 }
 .modal--portfolio .pf-main-img {
   position: relative;
@@ -174,10 +348,13 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 16px;
+  padding: 0 20px;
 }
 .modal--portfolio .pf-arrows button {
-  width: 40px; height: 40px;
+  width: 42px; height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   background: var(--c-red);
   color: #fff;
 }
@@ -185,10 +362,12 @@
   display: flex;
   gap: 8px;
   margin-top: 12px;
+  padding: 10px 10px 0;
+  justify-content: center;
 }
 .modal--portfolio .pf-thumbs > div {
-  width: 80px;
-  aspect-ratio: 1;
+  width: 110px;
+  aspect-ratio: 18/10;
   background: #1c1c1c center/cover no-repeat;
   cursor: pointer;
   opacity: .7;
@@ -197,24 +376,65 @@
 .modal--portfolio .pf-thumbs > div:hover,
 .modal--portfolio .pf-thumbs > div.is-active { opacity: 1; }
 
-.modal--portfolio .pf-info { padding: 20px 0 0; display: flex; flex-direction: column; gap: 12px; }
+.modal--portfolio .pf-info {
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
 .modal--portfolio .pf-info-row {
   display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  font-size: 15px;
-  color: var(--c-text);
-  border-bottom: 1px dotted var(--c-divider);
-  padding-bottom: 6px;
+  align-items: flex-end;
+  gap: 10px;
+  font-size: 18px;
+  margin-bottom: 10px;
 }
-.modal--portfolio .pf-info-row span:first-child { color: var(--c-text-muted); }
-.modal--portfolio .pf-info-row span:last-child { font-weight: 500; }
+/* Dotted leader line as flex ::after between label and value */
+.modal--portfolio .pf-info-row::after {
+  content: "";
+  order: 2;
+  flex: 1;
+  border-bottom: 1.5px dotted #C8C6C4;
+  margin: 0 6px 4px;
+  align-self: flex-end;
+}
+.modal--portfolio .pf-info-row span:first-child {
+  order: 1;
+  flex-shrink: 0;
+  color: var(--c-text-muted);
+  white-space: nowrap;
+}
+.modal--portfolio .pf-info-row span:last-child {
+  order: 3;
+  flex-shrink: 0;
+  font-weight: 500;
+  font-size: 18px;
+  white-space: nowrap;
+  letter-spacing: -0.02em;
+}
+
+/* Pins with vertical dashed connector */
 .modal--portfolio .pf-pins {
   margin-top: auto;
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  padding-top: 20px;
+  gap: 30px;
+}
+.modal--portfolio .pf-pins .case-pin {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  position: relative;
+}
+.modal--portfolio .pf-pins .case-pin__info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.modal--portfolio .pf-pins .case-pin__label {
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--c-text)
 }
 
 /* Review popup */

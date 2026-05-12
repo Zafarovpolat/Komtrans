@@ -437,32 +437,54 @@
         <p class="section-tag">Портфолио</p>
         <h2 class="section-title">Нам уже доверили</h2>
       </div>
-      <div class="carousel-nav">
-        <button aria-label="Назад"><img src="assets/icons/arrow-left.svg" alt=""></button>
-        <button aria-label="Вперёд"><img src="assets/icons/arrow-right.svg" alt=""></button>
+      <div class="carousel-nav" data-carousel="portfolio">
+        <button data-dir="-1" aria-label="Назад"><img src="assets/icons/arrow-left.svg" alt=""></button>
+        <button data-dir="1" aria-label="Вперёд"><img src="assets/icons/arrow-right.svg" alt=""></button>
       </div>
     </div>
-    <div class="portfolio__grid">
-      <article class="case-card" data-modal="portfolio">
-        <div class="case-card__img" style="background-image: url('assets/img/portfolio-1.jpg')"></div>
-        <div class="case-card__body">
-          <div class="case-card__pins case-pins">
-            <div class="case-pin"><span class="case-pin__letter">А</span><span class="case-pin__label">г.&nbsp;Пекин, Китай</span></div>
-            <div class="case-pin"><span class="case-pin__letter">Б</span><span class="case-pin__label">г.&nbsp;Красноярск, Россия</span></div>
+    <div class="carousel-wrap" id="carousel-portfolio">
+      <div class="portfolio__grid carousel-track">
+        <article class="case-card" data-modal="portfolio">
+          <div class="case-card__img" style="background-image: url('assets/img/portfolio-1.jpg')"></div>
+          <div class="case-card__body">
+            <div class="case-card__pins case-pins">
+              <div class="case-pin"><span class="case-pin__letter">А</span><span class="case-pin__label">г.&nbsp;Пекин, Китай</span></div>
+              <div class="case-pin"><span class="case-pin__letter">Б</span><span class="case-pin__label">г.&nbsp;Красноярск, Россия</span></div>
+            </div>
+            <div class="case-card__title">Доставка крупногабаритных шин</div>
           </div>
-          <div class="case-card__title">Доставка крупногабаритных шин</div>
-        </div>
-      </article>
-      <article class="case-card" data-modal="portfolio">
-        <div class="case-card__img" style="background-image: url('assets/img/portfolio-2.jpg')"></div>
-        <div class="case-card__body">
-          <div class="case-card__pins case-pins">
-            <div class="case-pin"><span class="case-pin__letter">А</span><span class="case-pin__label">г.&nbsp;Шанхай, Китай</span></div>
-            <div class="case-pin"><span class="case-pin__letter">Б</span><span class="case-pin__label">г.&nbsp;Москва, Россия</span></div>
+        </article>
+        <article class="case-card" data-modal="portfolio">
+          <div class="case-card__img" style="background-image: url('assets/img/portfolio-2.jpg')"></div>
+          <div class="case-card__body">
+            <div class="case-card__pins case-pins">
+              <div class="case-pin"><span class="case-pin__letter">А</span><span class="case-pin__label">г.&nbsp;Шанхай, Китай</span></div>
+              <div class="case-pin"><span class="case-pin__letter">Б</span><span class="case-pin__label">г.&nbsp;Москва, Россия</span></div>
+            </div>
+            <div class="case-card__title">Доставка Komatsu PC&nbsp;400</div>
           </div>
-          <div class="case-card__title">Доставка Komatsu PC&nbsp;400</div>
-        </div>
-      </article>
+        </article>
+        <article class="case-card" data-modal="portfolio">
+          <div class="case-card__img" style="background-image: url('assets/img/portfolio-1.jpg')"></div>
+          <div class="case-card__body">
+            <div class="case-card__pins case-pins">
+              <div class="case-pin"><span class="case-pin__letter">А</span><span class="case-pin__label">г.&nbsp;Гуанчжоу, Китай</span></div>
+              <div class="case-pin"><span class="case-pin__letter">Б</span><span class="case-pin__label">г.&nbsp;Новосибирск, Россия</span></div>
+            </div>
+            <div class="case-card__title">Доставка промышленного пресса</div>
+          </div>
+        </article>
+        <article class="case-card" data-modal="portfolio">
+          <div class="case-card__img" style="background-image: url('assets/img/portfolio-2.jpg')"></div>
+          <div class="case-card__body">
+            <div class="case-card__pins case-pins">
+              <div class="case-pin"><span class="case-pin__letter">А</span><span class="case-pin__label">г.&nbsp;Сеул, Корея</span></div>
+              <div class="case-pin"><span class="case-pin__letter">Б</span><span class="case-pin__label">г.&nbsp;Екатеринбург, Россия</span></div>
+            </div>
+            <div class="case-card__title">Доставка энергетического оборудования</div>
+          </div>
+        </article>
+      </div>
     </div>
   </div>
 </section>
@@ -475,12 +497,13 @@
         <p class="section-tag">Отзывы</p>
         <h2 class="section-title">Что говорят клиенты</h2>
       </div>
-      <div class="carousel-nav">
-        <button aria-label="Назад"><img src="assets/icons/arrow-left.svg" alt=""></button>
-        <button aria-label="Вперёд"><img src="assets/icons/arrow-right.svg" alt=""></button>
+      <div class="carousel-nav" data-carousel="reviews">
+        <button data-dir="-1" aria-label="Назад"><img src="assets/icons/arrow-left.svg" alt=""></button>
+        <button data-dir="1" aria-label="Вперёд"><img src="assets/icons/arrow-right.svg" alt=""></button>
       </div>
     </div>
-    <div class="reviews__grid">
+    <div class="carousel-wrap" id="carousel-reviews">
+    <div class="reviews__grid carousel-track">
       <article class="review-card" data-modal="review">
         <div class="review-card__head">
           <div class="review-card__name-row">
@@ -511,6 +534,27 @@
         <p class="review-card__text">Решали задачу по&nbsp;перевозке негабаритного станка. Понравился инженерный подход: специалисты заранее рассчитали все осевые нагрузки и&nbsp;схему погрузки. Всё прошло без&nbsp;накладок на&nbsp;границе. Ценник адекватный рынку, но&nbsp;уровень сервиса и&nbsp;личной ответственности сотрудников на&nbsp;порядок...</p>
         <button class="review-card__more">Читать полностью</button>
       </article>
+      <article class="review-card" data-modal="review">
+        <div class="review-card__head">
+          <div class="review-card__name-row">
+            <div class="review-card__name">Сергей Белов <span class="review-card__rating">4.8</span></div>
+            <div class="review-card__role">генеральный директор, строительная компания</div>
+          </div>
+        </div>
+        <p class="review-card__text">Доставляли кран-манипулятор из&nbsp;Китая на&nbsp;объект в&nbsp;Сибири. Сроки были жёсткие&nbsp;— запуск объекта не&nbsp;мог ждать. Komtrans уложились в&nbsp;18&nbsp;дней, включая таможню. Спецтехника пришла в&nbsp;идеальном состоянии, крепления нигде не&nbsp;разболтались. Работаем с&nbsp;ними уже второй год...</p>
+        <button class="review-card__more">Читать полностью</button>
+      </article>
+      <article class="review-card" data-modal="review">
+        <div class="review-card__head">
+          <div class="review-card__name-row">
+            <div class="review-card__name">Ольга Кузнецова <span class="review-card__rating">5</span></div>
+            <div class="review-card__role">менеджер по закупкам, производство</div>
+          </div>
+        </div>
+        <p class="review-card__text">Первый опыт с&nbsp;международной логистикой, и&nbsp;сразу удачный. Боялась скрытых платежей на&nbsp;таможне — обошлось без сюрпризов. Менеджер на&nbsp;связи 24/7, статусы присылали в&nbsp;Telegram на&nbsp;каждом этапе. Оборудование доставлено точно в&nbsp;срок, все документы в&nbsp;порядке...</p>
+        <button class="review-card__more">Читать полностью</button>
+      </article>
+    </div>
     </div>
   </div>
 </section>
@@ -522,7 +566,6 @@
       <div class="faq__left">
         <p class="section-tag">Частые вопросы</p>
         <h2 class="section-title">Отвечаем на<br>главные вопросы</h2>
-        <div class="faq__spacer"></div>
         <div class="faq__cta">
           <h3>Остались вопросы?</h3>
           <p>Оставьте заявку, наш менеджер свяжется с&nbsp;Вами в&nbsp;ближайшее время и&nbsp;ответит на&nbsp;все интересующие вопросы.</p>
@@ -630,7 +673,7 @@
       <div class="field"><input type="email" name="email" placeholder="Ваш e-mail"></div>
       <div class="field"><input type="tel" name="phone" placeholder="+7 (___) ___-__-__" required></div>
       <label class="agreement">
-        <input type="checkbox" checked>
+        <input type="checkbox">
         <span class="check"></span>
         <span>Я&nbsp;даю согласие на&nbsp;<a href="privacy.html">обработку персональных данных</a></span>
       </label>
@@ -647,12 +690,12 @@
     <h2 class="modal__title">Задать вопрос</h2>
     <p class="modal__lead">Оставьте контакт и&nbsp;наш менеджер свяжется с&nbsp;вами в&nbsp;ближайшие 30&nbsp;минут и&nbsp;ответит на&nbsp;все вопросы.</p>
     <form class="modal-form" data-form>
-      <div class="field"><input type="text" name="name" placeholder="Ваше имя"></div>
-      <div class="field"><input type="email" name="email" placeholder="Ваш e-mail"></div>
-      <div class="field"><input type="tel" name="phone" placeholder="+7 (___) ___-__-__"></div>
+      <div class="field"><input type="text" name="name" placeholder="Ваше имя" required></div>
+      <div class="field"><input type="email" name="email" placeholder="Ваш e-mail" required></div>
+      <div class="field"><input type="tel" name="phone" placeholder="+7 (___) ___-__-__" required></div>
       <div class="field"><textarea name="question" placeholder="Ваш вопрос"></textarea></div>
       <label class="agreement">
-        <input type="checkbox" checked>
+        <input type="checkbox">
         <span class="check"></span>
         <span>Я&nbsp;даю согласие на&nbsp;<a href="privacy.html">обработку персональных данных</a></span>
       </label>
@@ -666,24 +709,128 @@
   <div class="modal__overlay" data-close></div>
   <div class="modal__dialog">
     <button class="modal__close" data-close aria-label="Закрыть"><img src="assets/icons/x-mark.svg" alt=""></button>
-    <form class="calculator-widget" novalidate>
+
+    <!-- Header (shown on steps 1-5) -->
+    <div class="calc-header" id="calc-modal-header">
       <h3 class="calculator-widget__title">Ответьте на&nbsp;5 вопросов и&nbsp;менеджер свяжется с&nbsp;точным расчётом</h3>
       <p class="calculator-widget__lead">Узнайте стоимость доставки сегодня и&nbsp;забронируйте транспорт на&nbsp;выгодных условиях.</p>
-      <div class="calc-progress" aria-hidden="true">
-        <span class="is-active"></span><span></span><span></span><span></span><span></span>
+      <div class="calc-progress" id="calc-modal-progress" aria-hidden="true">
+        <span></span><span></span><span></span><span></span><span></span>
       </div>
+    </div>
+
+    <!-- STEP 1: Откуда везём? -->
+    <div class="calc-step" data-step="1">
       <div class="calculator-widget__step-row">
         <h3>Откуда везём?</h3>
         <span class="step">Шаг&nbsp;1 из&nbsp;5</span>
       </div>
       <div class="calculator-widget__opts">
-        <label class="calc-opt"><input type="radio" name="from2" checked><span class="calc-opt__letter">А</span><span class="calc-opt__label">Китай (материковый)</span></label>
-        <label class="calc-opt"><input type="radio" name="from2"><span class="calc-opt__letter">Б</span><span class="calc-opt__label">Гонконг</span></label>
-        <label class="calc-opt"><input type="radio" name="from2"><span class="calc-opt__letter">В</span><span class="calc-opt__label">Корея</span></label>
-        <label class="calc-opt"><input type="radio" name="from2"><span class="calc-opt__letter">Г</span><span class="calc-opt__label">Другая страна Азии</span></label>
+        <label class="calc-opt"><input type="radio" name="cq1" value="cn"><span class="calc-opt__letter">А</span><span class="calc-opt__label">Китай (материковый)</span></label>
+        <label class="calc-opt"><input type="radio" name="cq1" value="hk"><span class="calc-opt__letter">Б</span><span class="calc-opt__label">Гонконг</span></label>
+        <label class="calc-opt"><input type="radio" name="cq1" value="kr"><span class="calc-opt__letter">В</span><span class="calc-opt__label">Корея</span></label>
+        <label class="calc-opt"><input type="radio" name="cq1" value="other"><span class="calc-opt__letter">Г</span><span class="calc-opt__label">Другая страна Азии</span></label>
       </div>
-      <button type="submit" class="btn">Следующий шаг</button>
-    </form>
+      <div class="calc-nav">
+        <button type="button" class="calc-prev-btn" disabled>Предыдущий шаг</button>
+        <button type="button" class="btn calc-next-btn">Следующий шаг</button>
+      </div>
+    </div>
+
+    <!-- STEP 2: Что везём? -->
+    <div class="calc-step" data-step="2" hidden>
+      <div class="calculator-widget__step-row">
+        <h3>Что везём?</h3>
+        <span class="step">Шаг&nbsp;2 из&nbsp;5</span>
+      </div>
+      <div class="calculator-widget__opts">
+        <label class="calc-opt"><input type="radio" name="cq2" value="industrial"><span class="calc-opt__letter">А</span><span class="calc-opt__label">Промышленное оборудование / станки</span></label>
+        <label class="calc-opt"><input type="radio" name="cq2" value="construction"><span class="calc-opt__letter">Б</span><span class="calc-opt__label">Строительная / горнодобывающая техника</span></label>
+        <label class="calc-opt"><input type="radio" name="cq2" value="energy"><span class="calc-opt__letter">В</span><span class="calc-opt__label">Энергетическое / электрооборудование</span></label>
+        <label class="calc-opt"><input type="radio" name="cq2" value="other"><span class="calc-opt__letter">Г</span><span class="calc-opt__label">Другой тип груза</span></label>
+      </div>
+      <div class="calc-nav">
+        <button type="button" class="calc-prev-btn">Предыдущий шаг</button>
+        <button type="button" class="btn calc-next-btn">Следующий шаг</button>
+      </div>
+    </div>
+
+    <!-- STEP 3: Вес груза? -->
+    <div class="calc-step" data-step="3" hidden>
+      <div class="calculator-widget__step-row">
+        <h3>Вес груза?</h3>
+        <span class="step">Шаг&nbsp;3 из&nbsp;5</span>
+      </div>
+      <div class="calculator-widget__opts">
+        <label class="calc-opt"><input type="radio" name="cq3" value="lt1"><span class="calc-opt__letter">А</span><span class="calc-opt__label">До 1&nbsp;тонны</span></label>
+        <label class="calc-opt"><input type="radio" name="cq3" value="1-5"><span class="calc-opt__letter">Б</span><span class="calc-opt__label">1&nbsp;— 5&nbsp;тонн</span></label>
+        <label class="calc-opt"><input type="radio" name="cq3" value="5-20"><span class="calc-opt__letter">В</span><span class="calc-opt__label">5&nbsp;— 20&nbsp;тонн</span></label>
+        <label class="calc-opt"><input type="radio" name="cq3" value="gt20"><span class="calc-opt__letter">Г</span><span class="calc-opt__label">Свыше 20&nbsp;тонн</span></label>
+      </div>
+      <div class="calc-nav">
+        <button type="button" class="calc-prev-btn">Предыдущий шаг</button>
+        <button type="button" class="btn calc-next-btn">Следующий шаг</button>
+      </div>
+    </div>
+
+    <!-- STEP 4: Как срочно? -->
+    <div class="calc-step" data-step="4" hidden>
+      <div class="calculator-widget__step-row">
+        <h3>Как срочно нужна доставка?</h3>
+        <span class="step">Шаг&nbsp;4 из&nbsp;5</span>
+      </div>
+      <div class="calculator-widget__opts">
+        <label class="calc-opt"><input type="radio" name="cq4" value="urgent"><span class="calc-opt__letter">А</span><span class="calc-opt__label">Срочно, нужно быстрее всего</span></label>
+        <label class="calc-opt"><input type="radio" name="cq4" value="standard"><span class="calc-opt__letter">Б</span><span class="calc-opt__label">Стандартные сроки, важнее цена</span></label>
+        <label class="calc-opt"><input type="radio" name="cq4" value="flexible"><span class="calc-opt__letter">В</span><span class="calc-opt__label">Пока планирую, сроки гибкие</span></label>
+      </div>
+      <div class="calc-nav">
+        <button type="button" class="calc-prev-btn">Предыдущий шаг</button>
+        <button type="button" class="btn calc-next-btn">Следующий шаг</button>
+      </div>
+    </div>
+
+    <!-- STEP 5: Что важнее? -->
+    <div class="calc-step" data-step="5" hidden>
+      <div class="calculator-widget__step-row">
+        <h3>Что важнее при выборе перевозчика?</h3>
+        <span class="step">Шаг&nbsp;5 из&nbsp;5</span>
+      </div>
+      <div class="calculator-widget__opts">
+        <label class="calc-opt"><input type="radio" name="cq5" value="reliability"><span class="calc-opt__letter">А</span><span class="calc-opt__label">Надёжность и&nbsp;гарантия доставки</span></label>
+        <label class="calc-opt"><input type="radio" name="cq5" value="price"><span class="calc-opt__letter">Б</span><span class="calc-opt__label">Минимальная цена</span></label>
+        <label class="calc-opt"><input type="radio" name="cq5" value="speed"><span class="calc-opt__letter">В</span><span class="calc-opt__label">Скорость и&nbsp;сроки</span></label>
+        <label class="calc-opt"><input type="radio" name="cq5" value="fullservice"><span class="calc-opt__letter">Г</span><span class="calc-opt__label">Полный сервис «под ключ»</span></label>
+      </div>
+      <div class="calc-nav">
+        <button type="button" class="calc-prev-btn">Предыдущий шаг</button>
+        <button type="button" class="btn calc-next-btn">Следующий шаг</button>
+      </div>
+    </div>
+
+    <!-- STEP 6: Финальная форма -->
+    <div class="calc-step calc-step--final" data-step="6" hidden>
+      <div class="calc-final-top">
+        <button type="button" class="calc-restart">← Пройти опрос ещё раз</button>
+        <span class="calc-done-label">✓ Шаг 5 из 5</span>
+      </div>
+      <h2 class="calc-final-title">Отлично! Мы&nbsp;готовы рассчитать стоимость вашей перевозки.</h2>
+      <p class="calc-final-lead">Оставьте контакт и&nbsp;наш менеджер свяжется с&nbsp;вами в&nbsp;ближайшие 30&nbsp;минут с&nbsp;персональным расчётом на&nbsp;основе Ваших ответов.</p>
+      <form class="modal-form" data-form id="calc-final-form">
+        <div class="field"><input type="text" name="name" placeholder="Ваше имя" required></div>
+        <div class="field"><input type="email" name="email" placeholder="Ваш e-mail"></div>
+        <div class="field"><input type="tel" name="phone" placeholder="+7 (___) ___-__-__" required></div>
+        <label class="agreement">
+          <input type="checkbox">
+          <span class="check"></span>
+          <span>Я&nbsp;даю согласие на&nbsp;<a href="privacy.html">обработку персональных данных</a></span>
+        </label>
+        <div class="calc-nav calc-nav--single">
+          <button type="submit" class="btn calc-next-btn">Получить расчёт</button>
+        </div>
+      </form>
+    </div>
+
   </div>
 </div>
 
@@ -727,8 +874,18 @@
         <div class="pf-info-row"><span>Расстояние</span><span>12&nbsp;117&nbsp;км.</span></div>
         <div class="pf-info-row"><span>Время в&nbsp;пути</span><span>8&nbsp;дней</span></div>
         <div class="pf-pins case-pins">
-          <div class="case-pin"><span class="case-pin__letter">А</span><span class="case-pin__label">г.&nbsp;Пекин, Китай</span></div>
-          <div class="case-pin"><span class="case-pin__letter">Б</span><span class="case-pin__label">г.&nbsp;Красноярск, Россия</span></div>
+          <div class="case-pin">
+            <span class="case-pin__letter">А</span>
+            <div class="case-pin__info">
+              <span class="case-pin__label">г.&nbsp;Пекин, Китай</span>
+            </div>
+          </div>
+          <div class="case-pin">
+            <span class="case-pin__letter">Б</span>
+            <div class="case-pin__info">
+              <span class="case-pin__label">г.&nbsp;Красноярск, Россия</span>
+            </div>
+          </div>
         </div>
       </div>
     </div>
