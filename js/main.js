@@ -644,6 +644,7 @@
     var track = wrap.querySelector('.carousel-track');
     if (!track) return;
 
+    var dotsContainer = document.getElementById('dots-' + navAttr);
     var realItems = Array.from(track.children);
     var N = realItems.length;
     var current = 0;
@@ -665,6 +666,35 @@
       track.style.gridTemplateColumns = 'repeat(' + totalItems() + ', calc(100% / ' + vis() + '))';
     }
 
+    // Build pagination dots (one per real slide)
+    var dotButtons = [];
+    if (dotsContainer) {
+      dotsContainer.innerHTML = '';
+      for (var di = 0; di < N; di++) {
+        (function (idx) {
+          var b = document.createElement('button');
+          b.type = 'button';
+          b.setAttribute('aria-label', 'К слайду ' + (idx + 1));
+          if (idx === 0) b.classList.add('is-active');
+          b.addEventListener('click', function () {
+            var base = infinite ? N : 0;
+            moveTo(base + idx, true);
+          });
+          dotsContainer.appendChild(b);
+          dotButtons.push(b);
+        })(di);
+      }
+    }
+
+    function syncDots() {
+      if (!dotButtons.length) return;
+      var realIdx = ((current % N) + N) % N;
+      for (var i = 0; i < dotButtons.length; i++) {
+        if (i === realIdx) dotButtons[i].classList.add('is-active');
+        else dotButtons[i].classList.remove('is-active');
+      }
+    }
+
     function moveTo(idx, animate) {
       current = idx;
       setLayout();
@@ -676,6 +706,7 @@
       } else {
         track.style.transform = 'translateX(calc(-' + current + ' / ' + vis() + ' * 100%))';
       }
+      syncDots();
       if (onMove) onMove(track, current);
     }
 
@@ -731,6 +762,28 @@
   makeCarousel('portfolio', 'carousel-portfolio', function () {
     return window.innerWidth <= 1024 ? 1.15 : 2;
   }, true);
+
+  // Per-card image switcher (after carousel clones cards, init for all of them)
+  function initImageSwitcher(card) {
+    var dots = card.querySelectorAll('.case-card__img-dot');
+    var imgs = card.querySelectorAll('.case-card__media .case-card__img');
+    if (dots.length === 0 || imgs.length === 0) return;
+    dots.forEach(function (dot) {
+      dot.addEventListener('click', function (e) {
+        e.stopPropagation();
+        var idx = parseInt(dot.getAttribute('data-img'), 10) || 0;
+        imgs.forEach(function (img, i) {
+          if (i === idx) img.classList.add('is-active');
+          else img.classList.remove('is-active');
+        });
+        dots.forEach(function (d, i) {
+          if (i === idx) d.classList.add('is-active');
+          else d.classList.remove('is-active');
+        });
+      });
+    });
+  }
+  document.querySelectorAll('#carousel-portfolio .case-card').forEach(initImageSwitcher);
 
   // Reviews: infinite loop — restore border-left on the first visible card after each slide
   makeCarousel('reviews', 'carousel-reviews', function () {
