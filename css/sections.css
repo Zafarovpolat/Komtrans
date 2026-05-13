@@ -802,12 +802,6 @@ font-size: 18px;
   background-size: cover;
   background-position: center;
 }
-.case-card__img::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.4);
-}
 .case-card::after {
   content: "";
   position: absolute;
