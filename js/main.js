@@ -884,8 +884,6 @@
   // ---------- Scroll-triggered reveal animations (sibur-style) ----------
   (function () {
     if (!('IntersectionObserver' in window)) return;
-    // Respect prefers-reduced-motion
-    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
     // Selectors of elements to animate when they enter the viewport.
     // Picks section titles, paragraphs/cards/rows — broad coverage with sensible defaults.
