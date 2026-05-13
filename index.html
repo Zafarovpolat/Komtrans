@@ -62,7 +62,11 @@
 
 <!-- ======= 1. HERO ======= -->
 <section class="hero">
-  <div class="hero__bg"><img src="assets/img/hero-bg.jpg" alt=""></div>
+  <div class="hero__bg">
+    <img src="assets/img/hero-bg.jpg"
+         srcset="assets/img/hero-bg.jpg 1x, assets/img/hero-bg@2x.jpg 2x"
+         alt="">
+  </div>
   <div class="container">
     <div class="hero__content">
       <h1 class="hero__title">
@@ -178,7 +182,7 @@
           <span class="routes__sub">Шанхай, Гуанчжоу, Иу, Пекин и&nbsp;другие города</span>
         </div>
         <span class="routes__time">18&nbsp;—&nbsp;25 дней</span>
-        <a class="routes__go" href="#calc"><img src="assets/icons/arrow-up-right.svg" alt=""></a>
+        <button type="button" class="routes__go" data-modal="call" data-modal-title="Оставьте заявку" data-context="Маршрут: Китай → Россия (Авто)" aria-label="Оставить заявку по маршруту Китай → Россия (Авто)"><img src="assets/icons/arrow-up-right.svg" alt=""></button>
       </div>
       <div class="routes__row">
         <span class="routes__cc">CN</span>
@@ -187,7 +191,7 @@
           <span class="routes__sub">Подходит для&nbsp;крупнотоннажных грузов</span>
         </div>
         <span class="routes__time">25&nbsp;—&nbsp;35 дней</span>
-        <a class="routes__go" href="#calc"><img src="assets/icons/arrow-up-right.svg" alt=""></a>
+        <button type="button" class="routes__go" data-modal="call" data-modal-title="Оставьте заявку" data-context="Маршрут: Китай → Россия (Ж/д)" aria-label="Оставить заявку по маршруту Китай → Россия (Ж/д)"><img src="assets/icons/arrow-up-right.svg" alt=""></button>
       </div>
       <div class="routes__row">
         <span class="routes__cc">CN</span>
@@ -196,7 +200,7 @@
           <span class="routes__sub">Контейнерные и&nbsp;негабаритные отправки</span>
         </div>
         <span class="routes__time">35&nbsp;—&nbsp;45 дней</span>
-        <a class="routes__go" href="#calc"><img src="assets/icons/arrow-up-right.svg" alt=""></a>
+        <button type="button" class="routes__go" data-modal="call" data-modal-title="Оставьте заявку" data-context="Маршрут: Китай → Россия (Море)" aria-label="Оставить заявку по маршруту Китай → Россия (Море)"><img src="assets/icons/arrow-up-right.svg" alt=""></button>
       </div>
       <div class="routes__row">
         <span class="routes__cc">KR</span>
@@ -205,7 +209,7 @@
           <span class="routes__sub">Промышленное оборудование, электроника</span>
         </div>
         <span class="routes__time">20&nbsp;—&nbsp;30 дней</span>
-        <a class="routes__go" href="#calc"><img src="assets/icons/arrow-up-right.svg" alt=""></a>
+        <button type="button" class="routes__go" data-modal="call" data-modal-title="Оставьте заявку" data-context="Маршрут: Корея → Россия" aria-label="Оставить заявку по маршруту Корея → Россия"><img src="assets/icons/arrow-up-right.svg" alt=""></button>
       </div>
     </div>
   </div>
@@ -339,10 +343,10 @@
           <span class="step">Шаг&nbsp;1 из&nbsp;5</span>
         </div>
         <div class="calculator-widget__opts">
-          <label class="calc-opt is-selected"><input type="radio" name="from" checked><span class="calc-opt__letter">А</span><span class="calc-opt__label">Китай (материковый)</span></label>
-          <label class="calc-opt"><input type="radio" name="from"><span class="calc-opt__letter">Б</span><span class="calc-opt__label">Гонконг</span></label>
-          <label class="calc-opt"><input type="radio" name="from"><span class="calc-opt__letter">В</span><span class="calc-opt__label">Корея</span></label>
-          <label class="calc-opt"><input type="radio" name="from"><span class="calc-opt__letter">Г</span><span class="calc-opt__label">Другая страна Азии</span></label>
+          <label class="calc-opt is-selected"><input type="radio" name="from" value="cn" checked><span class="calc-opt__letter">А</span><span class="calc-opt__label">Китай (материковый)</span></label>
+          <label class="calc-opt"><input type="radio" name="from" value="hk"><span class="calc-opt__letter">Б</span><span class="calc-opt__label">Гонконг</span></label>
+          <label class="calc-opt"><input type="radio" name="from" value="kr"><span class="calc-opt__letter">В</span><span class="calc-opt__label">Корея</span></label>
+          <label class="calc-opt"><input type="radio" name="from" value="other"><span class="calc-opt__letter">Г</span><span class="calc-opt__label">Другая страна Азии</span></label>
         </div>
         <button type="submit" class="btn">Следующий шаг</button>
       </form>
@@ -365,7 +369,7 @@
           <div class="step-item__body">
             <h3>Заявка и&nbsp;расчёт</h3>
             <p>Связываемся в&nbsp;течение 30&nbsp;минут, рассчитываем стоимость с&nbsp;фиксацией в&nbsp;договоре.</p>
-            <button class="btn--ghost" data-modal="call">Оставить заявку</button>
+            <button class="btn--ghost" data-modal="call" data-modal-title="Оставьте заявку" data-context="Этап работы: Заявка и расчёт">Оставить заявку</button>
           </div>
         </li>
         <li class="step-item">
@@ -605,35 +609,35 @@
             <span>Как формируется итоговая цена?</span>
             <span class="faq-item__btn">Узнать</span>
           </button>
-          <div class="faq-item__a">Мы&nbsp;фиксируем полную стоимость в&nbsp;договоре до&nbsp;начала работы. В&nbsp;неё включены: забор груза, транспортировка, таможенное оформление, страховка и&nbsp;доставка до&nbsp;вашего склада. Никаких скрытых платежей.</div>
+          <div class="faq-item__a"><div class="faq-item__a-inner">Мы&nbsp;фиксируем полную стоимость в&nbsp;договоре до&nbsp;начала работы. В&nbsp;неё включены: забор груза, транспортировка, таможенное оформление, страховка и&nbsp;доставка до&nbsp;вашего склада. Никаких скрытых платежей.</div></div>
         </div>
         <div class="faq-item">
           <button class="faq-item__q" type="button">
             <span>Вы&nbsp;работаете с&nbsp;негабаритными грузами?</span>
             <span class="faq-item__btn">Узнать</span>
           </button>
-          <div class="faq-item__a">Да, это наша основная специализация. Подбираем тралы и&nbsp;тяжеловозы, оформляем спецразрешения, согласовываем маршруты с&nbsp;учётом мостов, эстакад и&nbsp;путепроводов.</div>
+          <div class="faq-item__a"><div class="faq-item__a-inner">Да, это наша основная специализация. Подбираем тралы и&nbsp;тяжеловозы, оформляем спецразрешения, согласовываем маршруты с&nbsp;учётом мостов, эстакад и&nbsp;путепроводов.</div></div>
         </div>
         <div class="faq-item">
           <button class="faq-item__q" type="button">
             <span>Как я&nbsp;буду знать, где мой груз?</span>
             <span class="faq-item__btn">Узнать</span>
           </button>
-          <div class="faq-item__a">Персональный менеджер на&nbsp;связи 24/7. Дополнительно отправляем фото и&nbsp;статусы в&nbsp;Telegram&nbsp;/ WhatsApp на&nbsp;каждом ключевом этапе.</div>
+          <div class="faq-item__a"><div class="faq-item__a-inner">Персональный менеджер на&nbsp;связи 24/7. Дополнительно отправляем фото и&nbsp;статусы в&nbsp;Telegram&nbsp;/ WhatsApp на&nbsp;каждом ключевом этапе.</div></div>
         </div>
         <div class="faq-item">
           <button class="faq-item__q" type="button">
             <span>Что если груз повредят при&nbsp;перевозке?</span>
             <span class="faq-item__btn">Узнать</span>
           </button>
-          <div class="faq-item__a">Все перевозки застрахованы. При&nbsp;повреждении или утрате&nbsp;— возмещение в&nbsp;полном объёме согласно условиям полиса.</div>
+          <div class="faq-item__a"><div class="faq-item__a-inner">Все перевозки застрахованы. При&nbsp;повреждении или утрате&nbsp;— возмещение в&nbsp;полном объёме согласно условиям полиса.</div></div>
         </div>
         <div class="faq-item">
           <button class="faq-item__q" type="button">
             <span>Вы&nbsp;помогаете с&nbsp;таможенным оформлением?</span>
             <span class="faq-item__btn">Узнать</span>
           </button>
-          <div class="faq-item__a">Да, оформляем все документы&nbsp;«под ключ»: декларации, сертификаты, разрешения. Вам не&nbsp;нужно ездить на&nbsp;таможню.</div>
+          <div class="faq-item__a"><div class="faq-item__a-inner">Да, оформляем все документы&nbsp;«под ключ»: декларации, сертификаты, разрешения. Вам не&nbsp;нужно ездить на&nbsp;таможню.</div></div>
         </div>
       </div>
     </div>
@@ -693,9 +697,10 @@
   <div class="modal__overlay" data-close></div>
   <div class="modal__dialog">
     <button class="modal__close" data-close aria-label="Закрыть"><img src="assets/icons/x-mark.svg" alt=""></button>
-    <h2 class="modal__title" id="modal-call-title">Заказать звонок</h2>
+    <h2 class="modal__title" id="modal-call-title" data-default-title="Заказать звонок">Заказать звонок</h2>
     <p class="modal__lead">Оставьте контакт и&nbsp;наш менеджер свяжется с&nbsp;вами в&nbsp;ближайшие 30&nbsp;минут и&nbsp;ответит на&nbsp;все вопросы.</p>
-    <form class="modal-form" data-form>
+    <form class="modal-form" data-form novalidate>
+      <input type="hidden" name="context" data-context-field>
       <div class="field"><input type="text" name="name" placeholder="Ваше имя" required></div>
       <div class="field"><input type="email" name="email" placeholder="Ваш e-mail"></div>
       <div class="field"><input type="tel" name="phone" placeholder="+7 (___) ___-__-__" required></div>
@@ -714,9 +719,10 @@
   <div class="modal__overlay" data-close></div>
   <div class="modal__dialog">
     <button class="modal__close" data-close aria-label="Закрыть"><img src="assets/icons/x-mark.svg" alt=""></button>
-    <h2 class="modal__title">Задать вопрос</h2>
+    <h2 class="modal__title" data-default-title="Задать вопрос">Задать вопрос</h2>
     <p class="modal__lead">Оставьте контакт и&nbsp;наш менеджер свяжется с&nbsp;вами в&nbsp;ближайшие 30&nbsp;минут и&nbsp;ответит на&nbsp;все вопросы.</p>
-    <form class="modal-form" data-form>
+    <form class="modal-form" data-form novalidate>
+      <input type="hidden" name="context" data-context-field>
       <div class="field"><input type="text" name="name" placeholder="Ваше имя" required></div>
       <div class="field"><input type="email" name="email" placeholder="Ваш e-mail" required></div>
       <div class="field"><input type="tel" name="phone" placeholder="+7 (___) ___-__-__" required></div>
@@ -843,7 +849,7 @@
       </div>
       <h2 class="calc-final-title">Отлично! Мы&nbsp;готовы рассчитать стоимость вашей перевозки.</h2>
       <p class="calc-final-lead">Оставьте контакт и&nbsp;наш менеджер свяжется с&nbsp;вами в&nbsp;ближайшие 30&nbsp;минут с&nbsp;персональным расчётом на&nbsp;основе Ваших ответов.</p>
-      <form class="modal-form" data-form id="calc-final-form">
+      <form class="modal-form" data-form id="calc-final-form" novalidate>
         <div class="field"><input type="text" name="name" placeholder="Ваше имя" required></div>
         <div class="field"><input type="email" name="email" placeholder="Ваш e-mail"></div>
         <div class="field"><input type="tel" name="phone" placeholder="+7 (___) ___-__-__" required></div>

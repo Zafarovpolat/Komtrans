@@ -37,6 +37,27 @@
 *::after {
   box-sizing: border-box;
 }
+
+/* Scroll-reveal animation (sibur-style) — applied via JS by IntersectionObserver */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform, opacity;
+}
+.reveal.is-inview {
+  opacity: 1;
+  transform: translateY(0);
+}
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
 html,
 body {
   margin: 0;
@@ -287,12 +308,11 @@ body {
   top: 100%;
   left: 50%;
   padding-top: 18px; /* Invisible bridge to catch mouse */
-  transform: translateX(-50%);
+  transform: translate(-50%, -8px);
   min-width: 220px;
   opacity: 0;
   visibility: hidden;
-  /* Hide with delay */
-  transition: opacity 0.2s ease 0.15s, visibility 0s linear 0.35s;
+  transition: opacity 0.28s ease, transform 0.32s cubic-bezier(0.16, 1, 0.3, 1), visibility 0s linear 0.32s;
   z-index: 200;
 }
 
@@ -302,6 +322,9 @@ body {
   color: var(--c-text);
   padding: 10px 0;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+  transform-origin: top center;
+  transform: scaleY(0.96);
+  transition: transform 0.32s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .dd-menu a {
@@ -320,15 +343,26 @@ body {
   opacity: 1;
 }
 
-/* Show on hover */
-.has-dd-wrap:hover .dd-menu {
+/* Show on hover or when explicitly opened */
+.has-dd-wrap:hover .dd-menu,
+.has-dd-wrap.is-open .dd-menu {
   opacity: 1;
   visibility: visible;
-  /* Appear immediately */
-  transition: opacity 0.2s ease 0s, visibility 0s linear 0s;
+  transform: translate(-50%, 0);
+  transition: opacity 0.22s ease, transform 0.32s cubic-bezier(0.16, 1, 0.3, 1), visibility 0s linear 0s;
 }
-.has-dd-wrap:hover .has-dd::after {
+.has-dd-wrap:hover .dd-menu .dd-menu__inner,
+.has-dd-wrap.is-open .dd-menu .dd-menu__inner {
+  transform: scaleY(1);
+}
+.has-dd-wrap:hover .has-dd::after,
+.has-dd-wrap.is-open .has-dd::after {
   transform: rotate(180deg);
+}
+
+/* Arrow chevron transition */
+.site-header__nav .has-dd::after {
+  transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .site-header__phone {
@@ -1030,8 +1064,11 @@ body {
   justify-content: center;
   width: 42px;
   height: 56px;
+  padding: 0;
   background: var(--c-red);
   color: #fff;
+  border: 1px solid var(--c-red);
+  cursor: pointer;
   transition: background 0.15s;
 }
 .routes__go:hover {

@@ -6,13 +6,24 @@
   position: fixed;
   inset: 0;
   z-index: 100;
-  display: none;
+  display: flex;
   align-items: flex-start;
   justify-content: center;
   padding: 24px;
-  background: rgba(20, 22, 26, .55);
+  background: rgba(20, 22, 26, 0);
+  opacity: 0;
+  visibility: hidden;
+  overflow-y: auto;
+  pointer-events: none;
+  transition: opacity 0.28s ease, background-color 0.28s ease, visibility 0s linear 0.28s;
 }
-.modal.is-open { display: flex; overflow-y: auto;}
+.modal.is-open {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  background: rgba(20, 22, 26, .55);
+  transition: opacity 0.28s ease, background-color 0.28s ease, visibility 0s linear 0s;
+}
 .modal__overlay {
   display: none;
 }
@@ -23,12 +34,15 @@
   max-width: 560px;
   padding: 40px;
   z-index: 1;
-  animation: modalIn .22s ease;
   margin: auto;
+  transform: translateY(20px);
+  opacity: 0;
+  transition: transform 0.32s cubic-bezier(0.16, 1, 0.3, 1),
+              opacity 0.28s ease;
 }
-@keyframes modalIn {
-  from { transform: translateY(8px); opacity: 0; }
-  to { transform: translateY(0); opacity: 1; }
+.modal.is-open .modal__dialog {
+  transform: translateY(0);
+  opacity: 1;
 }
 .modal__close {
   position: absolute;
