@@ -26,7 +26,19 @@
         <a href="#routes">Маршруты и сроки</a>
         <a href="#features">Преимущества</a>
         <a href="#numbers">Мы в цифрах</a>
-        <a href="#" class="has-dd">Ещё</a>
+        <div class="has-dd-wrap">
+          <a href="#" class="has-dd">Ещё</a>
+          <div class="dd-menu">
+            <div class="dd-menu__inner">
+              <a href="#calc">Калькулятор</a>
+              <a href="#steps">Этапы работы</a>
+              <a href="#garant">Гарантии</a>
+              <a href="#portfolio">Портфолио</a>
+              <a href="#reviews">Отзывы</a>
+              <a href="#faq">Частые вопросы</a>
+            </div>
+          </div>
+        </div>
       </nav>
 
       <div class="site-header__phone desktop-only">
@@ -42,6 +54,7 @@
       </button>
 
       <button class="site-header__cta-mobile mobile-only" data-modal="call" aria-label="Позвонить"></button>
+      <button class="site-header__calc-mobile mobile-only" data-modal="calculator" aria-label="Калькулятор"></button>
       <button class="site-header__menu-btn mobile-only" data-modal="menu" aria-label="Меню"></button>
     </div>
   </div>
@@ -216,45 +229,59 @@
 
     <div class="features__grid">
       <div class="features__visual">
-        <h3>Работаем с&nbsp;негабаритными<br>и&nbsp;тяжёлыми грузами&nbsp;— там,<br>где другие отказывают</h3>
+        <div class="fv-bg fv-bg--a"></div>
+        <div class="fv-bg fv-bg--b"></div>
+        <h3 class="features__visual-text">Работаем с&nbsp;негабаритными<br>и&nbsp;тяжёлыми грузами&nbsp;— там,<br>где другие отказывают</h3>
       </div>
       <div class="features__list">
-        <div class="feature-row is-open">
+        <div class="feature-row is-open"
+             data-ftext="Работаем с&nbsp;негабаритными и&nbsp;тяжёлыми грузами&nbsp;— там, где другие отказывают"
+             data-fimg="assets/img/feature-img.jpg">
           <div class="feature-row__content">
             <h3>Специализация на&nbsp;спецтехнике</h3>
             <p>Гарантируем бережную транспортировку дорогостоящих агрегатов с&nbsp;подбором специализированных тралов и&nbsp;надёжной фиксацией негабаритных узлов</p>
           </div>
           <span class="feature-row__num">01</span>
         </div>
-        <div class="feature-row">
+        <div class="feature-row"
+             data-ftext="Фиксированная цена — юридически закреплена,<br>без&nbsp;скрытых платежей"
+             data-fimg="assets/img/feature-img.jpg">
           <div class="feature-row__content">
             <h3>Фиксированная цена в&nbsp;договоре</h3>
             <p>Стоимость закреплена юридически. Мы&nbsp;не&nbsp;можем выставить дополнительный счёт без&nbsp;вашего согласия.</p>
           </div>
           <span class="feature-row__num">02</span>
         </div>
-        <div class="feature-row">
+        <div class="feature-row"
+             data-ftext="Каждая перевозка застрахована&nbsp;—<br>возмещение в&nbsp;полном объёме"
+             data-fimg="assets/img/feature-img.jpg">
           <div class="feature-row__content">
             <h3>Страхование груза</h3>
             <p>Каждая перевозка застрахована. В&nbsp;случае повреждения или утраты&nbsp;— возмещение в&nbsp;полном объёме.</p>
           </div>
           <span class="feature-row__num">03</span>
         </div>
-        <div class="feature-row">
+        <div class="feature-row"
+             data-ftext="Забираем, растамаживаем и&nbsp;доставляем&nbsp;—<br>вы&nbsp;только ждёте результат"
+             data-fimg="assets/img/feature-img.jpg">
           <div class="feature-row__content">
             <h3>Перевозки «под ключ»</h3>
             <p>Берём на&nbsp;себя забор груза, таможню, транспортировку и&nbsp;доставку до&nbsp;вашего склада.</p>
           </div>
           <span class="feature-row__num">04</span>
         </div>
-        <div class="feature-row">
+        <div class="feature-row"
+             data-ftext="Наш сотрудник в&nbsp;Китае принимает<br>груз лично и&nbsp;готовит к&nbsp;отправке"
+             data-fimg="assets/img/feature-img.jpg">
           <div class="feature-row__content">
             <h3>Представитель в&nbsp;Китае</h3>
             <p>Наш сотрудник на&nbsp;месте принимает груз, проверяет комплектность и&nbsp;готовит к&nbsp;отправке.</p>
           </div>
           <span class="feature-row__num">05</span>
         </div>
-        <div class="feature-row">
+        <div class="feature-row"
+             data-ftext="Один контакт на&nbsp;все вопросы&nbsp;—<br>от&nbsp;заявки до&nbsp;доставки"
+             data-fimg="assets/img/feature-img.jpg">
           <div class="feature-row__content">
             <h3>Персональный менеджер</h3>
             <p>Один контакт на&nbsp;все вопросы по&nbsp;вашему проекту&nbsp;— от&nbsp;заявки до&nbsp;доставки.</p>
@@ -324,7 +351,7 @@
 </section>
 
 <!-- ======= 7. STEPS ======= -->
-<section class="steps">
+<section class="steps" id="steps">
   <div class="container">
     <p class="section-tag">Как мы работаем</p>
     <div class="steps__grid">
@@ -375,7 +402,7 @@
 </section>
 
 <!-- ======= 8. GARANT ======= -->
-<section class="garant">
+<section class="garant" id="garant">
   <div class="garant__bg"></div>
   <div class="container">
     <div class="garant__grid">
@@ -430,7 +457,7 @@
 </section>
 
 <!-- ======= 9. PORTFOLIO ======= -->
-<section class="portfolio">
+<section class="portfolio" id="portfolio">
   <div class="container">
     <div class="portfolio__head">
       <div>
@@ -490,7 +517,7 @@
 </section>
 
 <!-- ======= 10. REVIEWS ======= -->
-<section class="reviews">
+<section class="reviews" id="reviews">
   <div class="container">
     <div class="reviews__head">
       <div>
@@ -560,7 +587,7 @@
 </section>
 
 <!-- ======= 11. FAQ ======= -->
-<section class="faq">
+<section class="faq" id="faq">
   <div class="container">
     <div class="faq__grid">
       <div class="faq__left">
@@ -911,18 +938,46 @@
 <div class="modal modal--menu" id="modal-menu" role="dialog" aria-modal="true">
   <div class="modal__overlay" data-close></div>
   <div class="modal__dialog">
-    <button class="modal__close" data-close aria-label="Закрыть"><img src="assets/icons/x-mark.svg" alt=""></button>
+    <!-- Header row -->
+    <div class="menu-header">
+      <button class="menu-header__close" data-close aria-label="Закрыть"></button>
+      <a class="menu-header__logo" href="/">
+        <img src="assets/icons/logo-dark.svg" alt="КомТранс Азия">
+      </a>
+      <button class="menu-header__calc" data-modal="calculator" aria-label="Калькулятор"></button>
+      <button class="menu-header__phone" data-modal="call" aria-label="Позвонить"></button>
+    </div>
+
+    <!-- Navigation -->
     <nav class="menu-list">
       <a href="#types" data-close>Типы грузов</a>
       <a href="#routes" data-close>Маршруты и сроки</a>
       <a href="#features" data-close>Преимущества</a>
       <a href="#numbers" data-close>Мы в цифрах</a>
-      <a href="#calc" data-close>Калькулятор</a>
-      <a href="#" data-close>Гарантии</a>
-      <a href="#" data-close>Портфолио</a>
-      <a href="#" data-close>Отзывы</a>
-      <a href="#" data-close>FAQ</a>
+      <a href="#steps" data-close>Как мы работаем</a>
+      <a href="#garant" data-close>Гарантии</a>
+      <a href="#portfolio" data-close>Портфолио</a>
+      <a href="#reviews" data-close>Отзывы</a>
+      <a href="#faq" data-close>Частые вопросы</a>
     </nav>
+
+    <!-- Contact info -->
+    <div class="menu-contacts">
+      <div class="menu-contacts__col">
+        <span class="menu-contacts__label">Телефон:</span>
+        <a href="tel:+73833121222" class="menu-contacts__value">+7 (383) 312-12-22</a>
+      </div>
+      <div class="menu-contacts__col">
+        <span class="menu-contacts__label">Мессенджеры:</span>
+        <div class="menu-contacts__messengers">
+          <a href="https://t.me/" target="_blank" rel="noopener">Telegram</a>
+          <a href="https://wa.me/" target="_blank" rel="noopener">WhatsApp</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- CTA -->
+    <button class="menu-cta btn" data-modal="call" data-close>Заказать звонок</button>
   </div>
 </div>
 

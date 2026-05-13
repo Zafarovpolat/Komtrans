@@ -267,7 +267,65 @@ body {
   border-right: 4px solid transparent;
   border-top: 5px solid var(--c-bg-white);
   vertical-align: middle;
+  transition: transform 0.2s ease;
 }
+
+/* Dropdown wrapper */
+.has-dd-wrap {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+/* Panel */
+.dd-menu {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  /* Padding-top creates an invisible hover bridge over the gap */
+  padding-top: 20px;
+  transform: translateX(-50%);
+  min-width: 220px;
+  opacity: 0;
+  pointer-events: none;
+  /* Show fast, hide with small delay so cursor can reach panel */
+  transition: opacity 0.18s ease 0.25s;
+  z-index: 200;
+}
+
+/* Visible card inside the padding wrapper */
+.dd-menu__inner {
+  background: #fff;
+  color: var(--c-text);
+  padding: 8px 0;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12);
+}
+
+.dd-menu a {
+  display: block;
+  padding: 11px 24px;
+  font-size: 15px;
+  font-weight: 400;
+  color: var(--c-text);
+  white-space: nowrap;
+  letter-spacing: -0.01em;
+  transition: color 0.15s;
+}
+.dd-menu a:hover {
+  color: var(--c-red);
+  opacity: 1;
+}
+
+/* Show on hover — instant appear, delayed hide handled by transition-delay */
+.has-dd-wrap:hover .dd-menu {
+  opacity: 1;
+  pointer-events: auto;
+  transition-delay: 0s; /* appear immediately */
+}
+.has-dd-wrap:hover .has-dd::after {
+  transform: rotate(180deg);
+}
+
 .site-header__phone {
   display: flex;
   flex-direction: column;
@@ -793,7 +851,7 @@ body {
 /* ---------- Section: Routes ---------- */
 .routes {
   position: relative;
-  color: #fff;
+  color: var(--c-bg-grey);
   padding: 100px 0 120px;
   overflow: hidden;
   isolation: isolate;
@@ -838,7 +896,7 @@ body {
   left: 0;
   right: 0;
   height: 120px;
-  background: var(--c-bg-light);
+  background: var(--c-bg-grey);
   z-index: -2;
 }
 .routes .section-tag {
@@ -980,7 +1038,7 @@ body {
 }
 
 .routes__after {
-  background: var(--c-bg-light);
+  background: var(--c-bg-grey);
   color: var(--c-text);
   padding: 60px 0 0;
   text-align: center;
