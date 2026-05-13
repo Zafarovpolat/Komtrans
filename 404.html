@@ -96,7 +96,7 @@
         filter: brightness(0);
       }
     }
-    @media (max-width: 1024px) {
+    @media (max-width: 768px) {
       .err {
         align-items: stretch;
       }
@@ -120,7 +120,7 @@
         position: absolute;
         top: 55%;
         left: 50%;
-        transform: translate(-50%, -50%);
+        transform: translate(-20%, -40%);
         width: 100%;
         z-index: -1;
         display: flex;
@@ -152,6 +152,15 @@
 
       .err__lead {
         font-size: 16px;
+      }
+
+      .err__img {
+        transform: scale(1.35) translateY(-10%);
+      }
+    }
+    @media (max-width: 480px) {
+      .err__img {
+        transform: scale(1.5) translateX(-8%);
       }
     }
   </style>
