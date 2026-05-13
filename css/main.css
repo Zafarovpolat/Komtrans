@@ -42,6 +42,9 @@ body {
   margin: 0;
   padding: 0;
 }
+html {
+  scroll-behavior: smooth;
+}
 img,
 svg {
   display: block;
@@ -282,14 +285,13 @@ body {
   position: absolute;
   top: 100%;
   left: 50%;
-  /* Padding-top creates an invisible hover bridge over the gap */
-  padding-top: 20px;
+  padding-top: 18px; /* Invisible bridge to catch mouse */
   transform: translateX(-50%);
   min-width: 220px;
   opacity: 0;
-  pointer-events: none;
-  /* Show fast, hide with small delay so cursor can reach panel */
-  transition: opacity 0.18s ease 0.25s;
+  visibility: hidden;
+  /* Hide with delay */
+  transition: opacity 0.2s ease 0.15s, visibility 0s linear 0.35s;
   z-index: 200;
 }
 
@@ -297,30 +299,33 @@ body {
 .dd-menu__inner {
   background: #fff;
   color: var(--c-text);
-  padding: 8px 0;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12);
+  padding: 12px 0;
+  border-radius: 4px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
 }
 
 .dd-menu a {
   display: block;
-  padding: 11px 24px;
+  padding: 10px 24px;
   font-size: 15px;
   font-weight: 400;
   color: var(--c-text);
   white-space: nowrap;
   letter-spacing: -0.01em;
-  transition: color 0.15s;
+  transition: color 0.15s, background-color 0.15s;
 }
 .dd-menu a:hover {
   color: var(--c-red);
+  background: #f8f7f6;
   opacity: 1;
 }
 
-/* Show on hover — instant appear, delayed hide handled by transition-delay */
+/* Show on hover */
 .has-dd-wrap:hover .dd-menu {
   opacity: 1;
-  pointer-events: auto;
-  transition-delay: 0s; /* appear immediately */
+  visibility: visible;
+  /* Appear immediately */
+  transition: opacity 0.2s ease 0s, visibility 0s linear 0s;
 }
 .has-dd-wrap:hover .has-dd::after {
   transform: rotate(180deg);
