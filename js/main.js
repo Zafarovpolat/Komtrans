@@ -644,7 +644,6 @@
     var track = wrap.querySelector('.carousel-track');
     if (!track) return;
 
-    var dotsContainer = document.getElementById('dots-' + navAttr);
     var realItems = Array.from(track.children);
     var N = realItems.length;
     var current = 0;
@@ -666,35 +665,6 @@
       track.style.gridTemplateColumns = 'repeat(' + totalItems() + ', calc(100% / ' + vis() + '))';
     }
 
-    // Build pagination dots (one per real slide)
-    var dotButtons = [];
-    if (dotsContainer) {
-      dotsContainer.innerHTML = '';
-      for (var di = 0; di < N; di++) {
-        (function (idx) {
-          var b = document.createElement('button');
-          b.type = 'button';
-          b.setAttribute('aria-label', 'К слайду ' + (idx + 1));
-          if (idx === 0) b.classList.add('is-active');
-          b.addEventListener('click', function () {
-            var base = infinite ? N : 0;
-            moveTo(base + idx, true);
-          });
-          dotsContainer.appendChild(b);
-          dotButtons.push(b);
-        })(di);
-      }
-    }
-
-    function syncDots() {
-      if (!dotButtons.length) return;
-      var realIdx = ((current % N) + N) % N;
-      for (var i = 0; i < dotButtons.length; i++) {
-        if (i === realIdx) dotButtons[i].classList.add('is-active');
-        else dotButtons[i].classList.remove('is-active');
-      }
-    }
-
     function moveTo(idx, animate) {
       current = idx;
       setLayout();
@@ -706,7 +676,6 @@
       } else {
         track.style.transform = 'translateX(calc(-' + current + ' / ' + vis() + ' * 100%))';
       }
-      syncDots();
       if (onMove) onMove(track, current);
     }
 
@@ -763,27 +732,99 @@
     return window.innerWidth <= 1024 ? 1.15 : 2;
   }, true);
 
-  // Per-card image switcher (after carousel clones cards, init for all of them)
-  function initImageSwitcher(card) {
-    var dots = card.querySelectorAll('.case-card__img-dot');
-    var imgs = card.querySelectorAll('.case-card__media .case-card__img');
-    if (dots.length === 0 || imgs.length === 0) return;
-    dots.forEach(function (dot) {
-      dot.addEventListener('click', function (e) {
-        e.stopPropagation();
-        var idx = parseInt(dot.getAttribute('data-img'), 10) || 0;
-        imgs.forEach(function (img, i) {
-          if (i === idx) img.classList.add('is-active');
-          else img.classList.remove('is-active');
-        });
-        dots.forEach(function (d, i) {
-          if (i === idx) d.classList.add('is-active');
-          else d.classList.remove('is-active');
-        });
+  // ---------- Portfolio modal slider ----------
+  (function () {
+    var modal = document.getElementById('modal-portfolio');
+    if (!modal) return;
+    var mainImg = modal.querySelector('.pf-main-img');
+    var thumbsWrap = modal.querySelector('.pf-thumbs');
+    var arrowsWrap = modal.querySelector('.pf-arrows');
+    if (!mainImg || !thumbsWrap || !arrowsWrap) return;
+
+    var images = [];
+    var currentIdx = 0;
+
+    function url(src) { return "url('" + src + "')"; }
+
+    function show(idx, animate) {
+      if (!images.length) return;
+      idx = ((idx % images.length) + images.length) % images.length;
+      currentIdx = idx;
+      if (animate) {
+        mainImg.classList.remove('is-fading');
+        // restart transition
+        void mainImg.offsetWidth;
+      }
+      mainImg.style.backgroundImage = url(images[idx]);
+      Array.from(thumbsWrap.children).forEach(function (t, i) {
+        if (i === idx) t.classList.add('is-active');
+        else t.classList.remove('is-active');
       });
+    }
+
+    function rebuildThumbs() {
+      thumbsWrap.innerHTML = '';
+      images.forEach(function (src, i) {
+        var div = document.createElement('div');
+        div.style.backgroundImage = url(src);
+        if (i === 0) div.classList.add('is-active');
+        div.addEventListener('click', function () { show(i, true); });
+        thumbsWrap.appendChild(div);
+      });
+    }
+
+    // Wire up arrows (delegated by buttons inside .pf-arrows)
+    var arrowBtns = arrowsWrap.querySelectorAll('button');
+    if (arrowBtns.length >= 2) {
+      arrowBtns[0].addEventListener('click', function (e) {
+        e.stopPropagation();
+        show(currentIdx - 1, true);
+      });
+      arrowBtns[1].addEventListener('click', function (e) {
+        e.stopPropagation();
+        show(currentIdx + 1, true);
+      });
+    }
+
+    // Touch swipe on main image
+    var startX = 0;
+    mainImg.addEventListener('touchstart', function (e) { startX = e.touches[0].clientX; }, { passive: true });
+    mainImg.addEventListener('touchend', function (e) {
+      var dx = startX - e.changedTouches[0].clientX;
+      if (Math.abs(dx) > 40) show(currentIdx + (dx > 0 ? 1 : -1), true);
+    }, { passive: true });
+
+    // Keyboard arrows when modal is open
+    document.addEventListener('keydown', function (e) {
+      if (!modal.classList.contains('is-open')) return;
+      if (e.key === 'ArrowLeft') show(currentIdx - 1, true);
+      else if (e.key === 'ArrowRight') show(currentIdx + 1, true);
     });
-  }
-  document.querySelectorAll('#carousel-portfolio .case-card').forEach(initImageSwitcher);
+
+    // Hook: every time a portfolio card opens the modal, repopulate images from data-images
+    function loadFromOpener(opener) {
+      if (!opener) return;
+      var raw = opener.getAttribute('data-images') || '';
+      var list = raw.split(',').map(function (s) { return s.trim(); }).filter(Boolean);
+      if (!list.length) {
+        // Fallback: try to read background-image from .case-card__img
+        var img = opener.querySelector('.case-card__img');
+        if (img) {
+          var m = (img.getAttribute('style') || '').match(/url\(['"]?([^'")]+)['"]?\)/);
+          if (m) list = [m[1]];
+        }
+      }
+      images = list;
+      rebuildThumbs();
+      show(0, false);
+    }
+
+    // Listen for clicks that open the portfolio modal so we can populate it first
+    document.addEventListener('click', function (e) {
+      var opener = e.target.closest('[data-modal="portfolio"]');
+      if (opener) loadFromOpener(opener);
+    }, true); // capture phase so it runs before openModal's bubble handler
+  }());
 
   // Reviews: infinite loop — restore border-left on the first visible card after each slide
   makeCarousel('reviews', 'carousel-reviews', function () {
