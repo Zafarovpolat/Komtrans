@@ -11,7 +11,7 @@
   justify-content: center;
   padding: 24px;
 }
-.modal.is-open { display: flex; overflow-y: scroll;}
+.modal.is-open { display: flex; overflow-y: auto;}
 .modal__overlay {
   position: absolute;
   inset: 0;
@@ -592,4 +592,26 @@
   width: 28px;
   height: 28px;
   margin-left: 0;
+}
+
+@media (max-width: 1024px) {
+  .modal--portfolio .pf-grid {
+    grid-template-columns: 1fr;
+  }
+
+.modal--portfolio .pf-grid > div:nth-child(1) {
+  padding: 0;
+}
+
+.modal--portfolio .pf-thumbs {
+  padding-bottom: 22px;
+}
+
+.modal--portfolio .modal__dialog {
+  max-width: 540px;
+}
+
+.modal--portfolio .pf-arrows {
+  display: none;
+}
 }
