@@ -34,9 +34,47 @@
       letter-spacing: -2%;
       max-width: 1008px;
     }
+    @media (max-width: 1280px) {
+      .site-header .container {
+      padding: 0;
+    }
+
+    .site-header__row {
+      background-color: white;
+    }
+
+    .site-header__logo {
+      border-right: 1px solid var(--c-border);
+    border-bottom: 1px solid var(--c-border);
+    }
+
+    .site-header__calc-mobile {
+      border-right: 1px solid var(--c-border);
+    border-bottom: 1px solid var(--c-border);
+    }
+
+    .site-header__cta-mobile {
+    border-bottom: 1px solid var(--c-border);
+    }
+
+    .site-header__calc-mobile::before {
+      filter: brightness(0);
+    }
+    }
     @media (max-width: 768px) {
-      .privacy h1 { font-size: 30px; margin-bottom: 24px; }
-      .privacy { padding: 40px 0 60px; }
+      .privacy h1 { font-size: 52px; margin-bottom: 40px; }
+      .privacy { padding: 80px 0 100px; }
+    }
+    @media (max-width: 640px) {
+      .privacy h1 { font-size: 44px; margin-bottom: 40px; }
+      .privacy { padding: 60px 0 80px; }
+      .privacy h2 {
+        font-size: 18px;
+      }
+      .privacy p, .privacy li {
+        font-size: 16px;
+        margin-top: 10px;
+      }
     }
   </style>
 </head>

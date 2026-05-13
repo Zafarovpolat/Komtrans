@@ -1060,3 +1060,43 @@ body {
   font-size: 18px;
   margin: 0 auto;
 }
+
+.site-header__cta,
+.routes__go,
+.calculator-widget .btn,
+.carousel-nav button,
+.modal--thx .btn,
+.calc-nav .btn,
+.modal-form .btn,
+.modal--portfolio .pf-arrows button,
+.site-footer__cta .btn{
+  transition: all 0.3s ease;
+  border: 1px solid var(--c-red);
+}
+
+/* Specific hover states requested by user */
+.site-header__cta:hover,
+.routes__go:hover,
+.calculator-widget .btn:hover,
+.carousel-nav button:hover,
+.modal--thx .btn:hover,
+.calc-nav .btn:hover,
+.modal-form .btn:hover,
+.modal--portfolio .pf-arrows button:hover,
+.site-footer__cta .btn:hover {
+  background: transparent !important;
+  color: var(--c-red) !important;
+}
+
+.site-header__cta:hover::after,
+.routes__go:hover img,
+.calculator-widget .btn:hover::after,
+.carousel-nav button:hover img,
+.carousel-nav button:hover svg,
+.modal--thx .btn:hover::after,
+.calc-nav .btn:hover::after,
+.modal-form .btn:hover::after,
+.modal--portfolio .pf-arrows button:hover img,
+.site-footer__cta .btn:hover::after {
+  filter: brightness(0) saturate(100%) invert(38%) sepia(98%) saturate(2300%) hue-rotate(345deg) brightness(95%) contrast(98%) !important;
+}
