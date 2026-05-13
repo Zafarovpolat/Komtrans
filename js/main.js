@@ -172,25 +172,57 @@
   });
 
   // ---------- Modal helpers ----------
-  function openModal(name) {
+  function openModal(name, opener) {
     const m = document.getElementById('modal-' + name);
     if (!m) return;
+
+    // Optional title override from opener (data-modal-title)
+    if (opener) {
+      const titleEl = m.querySelector('.modal__title');
+      if (titleEl) {
+        const overrideTitle = opener.getAttribute('data-modal-title');
+        if (overrideTitle) {
+          titleEl.textContent = overrideTitle;
+        } else if (titleEl.dataset.defaultTitle) {
+          titleEl.textContent = titleEl.dataset.defaultTitle;
+        }
+      }
+      // Optional context capture (sent with the form to identify which route/step the user clicked)
+      const ctx = opener.getAttribute('data-context');
+      const ctxField = m.querySelector('[data-context-field]');
+      if (ctxField) ctxField.value = ctx || '';
+    }
+
     m.classList.add('is-open');
     document.body.style.overflow = 'hidden';
   }
   function closeModal(modal) {
     if (!modal) return;
     modal.classList.remove('is-open');
+    // Reset title back to default for the next open
+    const titleEl = modal.querySelector('.modal__title');
+    if (titleEl && titleEl.dataset.defaultTitle) {
+      titleEl.textContent = titleEl.dataset.defaultTitle;
+    }
     if (!document.querySelector('.modal.is-open')) {
       document.body.style.overflow = '';
     }
   }
 
+  // Expose for other modules
+  window.openModal = openModal;
+  window.closeModal = closeModal;
+
   document.addEventListener('click', function (e) {
     const opener = e.target.closest('[data-modal]');
     if (opener) {
       e.preventDefault();
-      openModal(opener.getAttribute('data-modal'));
+      var name = opener.getAttribute('data-modal');
+      // Direct opens of the calculator modal always start at step 1
+      if (name === 'calculator' && typeof window.calcModalGoTo === 'function') {
+        window.calcModalGoTo(1);
+      }
+      openModal(name, opener);
       return;
     }
     const closer = e.target.closest('[data-close]');
@@ -257,12 +289,30 @@
     i.closest('.calc-opt').classList.add('is-selected');
   });
 
-  // ---------- Section calculator → opens modal-calculator ----------
+  // ---------- Section calculator → opens modal-calculator (skip duplicate step 1) ----------
   var calcWidget = document.getElementById('calc-widget');
   if (calcWidget) {
     calcWidget.addEventListener('submit', function (e) {
       e.preventDefault();
-      calcModalGoTo(1);
+      // Carry the answered "from" question into the modal so the user doesn't repeat step 1.
+      var picked = calcWidget.querySelector('input[name="from"]:checked');
+      var modal = document.getElementById('modal-calculator');
+      if (picked && modal) {
+        var modalRadio = modal.querySelector('input[name="cq1"][value="' + picked.value + '"]');
+        if (modalRadio) {
+          // Clear other radios + their selected style first
+          modal.querySelectorAll('input[name="cq1"]').forEach(function (r) {
+            r.checked = false;
+            var lbl = r.closest('.calc-opt');
+            if (lbl) lbl.classList.remove('is-selected');
+          });
+          modalRadio.checked = true;
+          var lbl = modalRadio.closest('.calc-opt');
+          if (lbl) lbl.classList.add('is-selected');
+        }
+      }
+      // Jump straight to step 2 (“Что везём?”)
+      calcModalGoTo(2);
       openModal('calculator');
     });
   }
@@ -693,5 +743,107 @@
       track.children[current].style.borderLeft = '1px solid #E0DFDE';
     }
   });
+
+  // ---------- Header "Ещё" dropdown — click toggle on touch / keyboard ----------
+  (function () {
+    var ddWraps = document.querySelectorAll('.has-dd-wrap');
+    if (!ddWraps.length) return;
+
+    ddWraps.forEach(function (wrap) {
+      var trigger = wrap.querySelector('.has-dd');
+      if (!trigger) return;
+
+      trigger.addEventListener('click', function (e) {
+        e.preventDefault();
+        var open = wrap.classList.toggle('is-open');
+        // Close other open dropdowns
+        if (open) {
+          ddWraps.forEach(function (w) {
+            if (w !== wrap) w.classList.remove('is-open');
+          });
+        }
+      });
+
+      // Close on dropdown link click
+      wrap.querySelectorAll('.dd-menu a').forEach(function (a) {
+        a.addEventListener('click', function () {
+          wrap.classList.remove('is-open');
+        });
+      });
+    });
+
+    // Close on outside click
+    document.addEventListener('click', function (e) {
+      if (!e.target.closest('.has-dd-wrap')) {
+        ddWraps.forEach(function (w) { w.classList.remove('is-open'); });
+      }
+    });
+
+    // Close on Escape
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') {
+        ddWraps.forEach(function (w) { w.classList.remove('is-open'); });
+      }
+    });
+  }());
+
+  // ---------- Scroll-triggered reveal animations (sibur-style) ----------
+  (function () {
+    if (!('IntersectionObserver' in window)) return;
+    // Respect prefers-reduced-motion
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    // Selectors of elements to animate when they enter the viewport.
+    // Picks section titles, paragraphs/cards/rows — broad coverage with sensible defaults.
+    var selectors = [
+      'h1', 'h2', 'h3',
+      '.section-tag',
+      '.hero__lead',
+      '.hero__metric',
+      '.hero__calc',
+      '.type-card',
+      '.routes__row',
+      '.routes__after',
+      '.feature-row',
+      '.features__visual',
+      '.num-card',
+      '.calc__inner',
+      '.step-item',
+      '.garant-card',
+      '.case-card',
+      '.review-card',
+      '.faq-item',
+      '.faq__cta',
+      '.site-footer__top'
+    ];
+
+    var nodes = document.querySelectorAll(selectors.join(','));
+    nodes.forEach(function (el) {
+      el.classList.add('reveal');
+    });
+
+    // Stagger groups within the same parent for a wave effect.
+    var seen = new WeakMap();
+    nodes.forEach(function (el) {
+      var parent = el.parentElement;
+      if (!parent) return;
+      var idx = seen.get(parent) || 0;
+      // Cap delay so very long lists don't take forever to reveal.
+      var delay = Math.min(idx * 70, 350);
+      el.style.transitionDelay = delay + 'ms';
+      seen.set(parent, idx + 1);
+    });
+
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-inview');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+    nodes.forEach(function (el) { io.observe(el); });
+  }());
 
 })();
