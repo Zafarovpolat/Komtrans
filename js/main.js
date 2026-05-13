@@ -675,12 +675,12 @@
 
   // Portfolio: 4 slides, infinite loop
   makeCarousel('portfolio', 'carousel-portfolio', function () {
-    return window.innerWidth <= 768 ? 1 : 2;
+    return window.innerWidth <= 1024 ? 1.15 : 2;
   }, true);
 
   // Reviews: infinite loop — restore border-left on the first visible card after each slide
   makeCarousel('reviews', 'carousel-reviews', function () {
-    return window.innerWidth <= 768 ? 1 : window.innerWidth <= 1280 ? 2 : 3;
+    return window.innerWidth <= 1024 ? 1.15 : window.innerWidth <= 1280 ? 2 : 3;
   }, true, function (track, current) {
     Array.from(track.children).forEach(function (card) {
       card.style.borderLeft = '';

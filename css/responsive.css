@@ -128,7 +128,9 @@
   .reviews__grid { grid-template-columns: repeat(3, calc(100% / 2)); }
   .types__grid { grid-template-columns: 1fr 1fr; }
   .type-card { border-right: 1px solid var(--c-border) !important; }
-  .type-card:nth-child(2n) { border-right: 0 !important; }
+  .type-card:nth-child(odd),.type-card:nth-child(6) {
+    border-left: 1px solid var(--c-border);
+  }
   .garant-card--empty {
     display: none !important;
   }
@@ -206,6 +208,34 @@
   .garant__bg {
     top: -440px;
   }
+
+  /* Portfolio & Reviews */
+  .portfolio, .reviews {
+    overflow: hidden;
+  }
+  .portfolio .container, .reviews .container {
+    display: flex;
+    flex-direction: column;
+  }
+  .portfolio__head, .reviews__head {
+    display: contents;
+  }
+  .portfolio__head > div:first-child, .reviews__head > div:first-child {
+    order: 1;
+    margin-bottom: 24px;
+  }
+  #carousel-portfolio, #carousel-reviews {
+    order: 2;
+    overflow: visible; /* Allows the next slide to peek */
+  }
+  .portfolio__head .carousel-nav, .reviews__head .carousel-nav {
+    order: 3;
+    margin-top: 24px;
+    align-self: flex-start;
+  }
+  .case-card {
+    height: 280px;
+  }
 }
 
 /* mobile */
@@ -260,6 +290,285 @@
     width: 40px;
     height: 40px;
   }
+
+  .routes__list {
+    padding: 20px;
+  }
+
+  .routes__row:nth-child(1) {
+    padding-top: 0;
+  }
+
+  .routes__row:last-child {
+    padding-bottom: 0;
+  }
+
+  .routes__after {
+    padding: 60px 28px 0;
+  }
+
+.calculator-widget {
+  max-width: 500px;
+  right: calc(50% - 500px / 2);
+}
+
+  .site-footer__right {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .site-header__logo img,.menu-header__logo img {
+    height: 28px;
+  }
+
+  .site-header__menu-btn,.site-header__calc-mobile,.site-header__cta-mobile,.menu-header__close, .menu-header__calc, .menu-header__phone {
+    width: 58px;
+  }
+
+  .site-header__menu-btn::before,.site-header__calc-mobile::before,.site-header__cta-mobile::before,.menu-header__close::before,.menu-header__calc::before,.menu-header__phone::before {
+    width: 28px;
+    height: 28px;
+  }
+
+  .modal--menu .menu-list a {
+    font-size: 16px;
+    font-weight: 500;
+  }
+
+  .menu-contacts__label {
+    font-size: 14px;
+  }
+
+  .menu-contacts__value,.menu-contacts__messengers a {
+    font-size: 16px;
+    font-weight: 500;
+  }
+
+  .menu-cta {
+    padding: 44px 20px 16px;
+  }
+
+  .hero__content {
+    padding-top: 100px;
+    padding-bottom: 40px;
+  }
+
+  .hero__title {
+    font-size: 44px;
+    max-width: 300px;
+  }
+
+  .hero__title .flag img {
+    width: 40px;
+    height: 40px;
+  }
+
+  .hero__calc,.hero__metric {
+    padding: 16px;
+    min-height: 160px;
+  }
+
+.hero__calc-link {
+  font-size: 16px;
+  border-bottom: none;
+}
+
+.hero__metric {
+  gap: 0;
+  justify-content: center;
+}
+
+.hero__metric-label {
+  font-size: 15px;
+  margin-top: 30px;
+}
+
+  .hero__metric-num {
+    font-size: 40px;
+  }
+
+  .hero__metric-num .unit {
+    font-size: 16px;
+  }
+
+  .types {
+    padding-bottom: 80px;
+  }
+
+  .types .section-tag {
+    padding-top: 0;
+    font-size: 16px;
+    margin-bottom: 20px;
+  }
+
+  .types__heading h2 {
+    font-size: 26px;
+    margin-bottom: 20px;
+  }
+
+  .types__heading {
+    padding-bottom: 40px;
+  }
+
+  .type-card {
+    padding: 20px;
+    min-height: 200px;
+    gap: 24px;
+  }
+
+  .type-card h3 {
+    font-size: 20px;
+  }
+
+  .types__heading p {
+    font-size: 16px;
+  }
+
+  .type-card--cta p {
+    font-size: 16px;
+  }
+
+  .type-card--cta .btn--ghost {
+    font-size: 16px;
+  }
+
+  .routes {
+    padding-top: 80px;
+  }
+
+  .section-tag {
+    font-size: 16px;
+    margin-bottom: 24px;
+  }
+
+  .routes__title {
+    font-size: 34px;
+  }
+
+  .routes__title .pill {
+    width: 36px;
+    height: 36px;
+  }
+
+  .routes__title {
+    margin-bottom: 40px;
+  }
+
+  .routes__row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 16px ;
+    padding: 16px;
+  }
+
+  .routes__bg {
+    height: 60vh;
+  }
+
+  .routes__path-line {
+    font-size: 16px;
+  }
+
+  .routes__sub {
+    font-size: 14px;
+  }
+
+  .routes__time {
+    padding-left: 52px;
+    flex: 1;
+  }
+
+  .routes__go {
+    width: 24px;
+    height: 24px;
+  }
+
+  .routes__cc {
+    width: 36px;
+    height: 36px;
+    font-size: 14px;
+    align-self: start;
+  }
+
+  .routes__after {
+    padding: 20px 28px 0;
+  }
+
+    .routes__after p {
+    font-size: 16px;
+  }
+
+  .routes__after .btn--ghost {
+    font-size: 16px;
+  }
+
+  .routes::after {
+    height: 80px;
+  }
+
+  .features {
+    padding-bottom: 80px;
+  }
+
+  .features .section-tag {
+    margin-bottom: 20px;
+  }
+
+  .features__head {
+    padding-top: 40px;
+    margin-bottom: 40px;
+  }
+
+  .features__head .section-title {
+    font-size: 34px;
+    margin-bottom: 20px;
+  }
+
+  .features__head div {
+    gap: 0;
+  }
+
+  .feature-slide__visual {
+    height: auto;
+    aspect-ratio: 65/77;
+    margin-bottom: -60px;
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 93%);
+  }
+
+  .feature-slide__body {
+    padding: 76px 20px 20px;
+  }
+
+  .feature-slide__content h3 {
+    margin-bottom: 20px;
+  }
+
+  .feature-slide__vtext {
+    font-size: 26px;
+    padding: 20px;
+  }
+
+  .numbers {
+    padding-top: 0;
+  }
+
+  .numbers .section-tag {
+    margin-bottom: 20px;
+  }
+
+  .numbers__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .num__card {
+    border: 1px solid var(--c-border);
+  }
+
+  .num__card:nth-child(1) {
+    border-left: 1px solid var(--c-border);
+  }
+
 }
 
 /* Default visibility helpers */
