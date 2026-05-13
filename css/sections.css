@@ -473,16 +473,20 @@
   font-size: 14px;
   font-weight: 500;
   flex: 0 0 36px;
+  transition: background-color 0.2s ease;
 }
 .calc-opt__label {
   font-size: 18px;
   font-weight: 500;
   color: var(--c-text);
   letter-spacing: -0.01em;
+  transition: color 0.2s ease;
 }
+.calc-opt:hover .calc-opt__letter,
 .calc-opt.is-selected .calc-opt__letter {
   background: var(--c-red);
 }
+.calc-opt:hover .calc-opt__label,
 .calc-opt.is-selected .calc-opt__label {
   color: var(--c-red);
 }

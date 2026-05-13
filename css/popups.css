@@ -7,15 +7,14 @@
   inset: 0;
   z-index: 100;
   display: none;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
   padding: 24px;
+  background: rgba(20, 22, 26, .55);
 }
 .modal.is-open { display: flex; overflow-y: auto;}
 .modal__overlay {
-  position: absolute;
-  inset: 0;
-  background: rgba(20, 22, 26, .55);
+  display: none;
 }
 .modal__dialog {
   position: relative;
@@ -25,6 +24,7 @@
   padding: 40px;
   z-index: 1;
   animation: modalIn .22s ease;
+  margin: auto;
 }
 @keyframes modalIn {
   from { transform: translateY(8px); opacity: 0; }
@@ -444,6 +444,7 @@
 .modal--menu {
   padding: 0;
   align-items: flex-start;
+  z-index: 90;
 }
 .modal--menu .modal__dialog {
   max-width: 100%;
@@ -614,4 +615,113 @@
 .modal--portfolio .pf-arrows {
   display: none;
 }
+
+.modal--portfolio .modal__close img {
+  filter: brightness(0) invert(1);
+  z-index: 1;
+}
+
+.modal--portfolio .pf-thumbs > div {
+  width: 100%;
+}
+
+}
+
+@media (max-width: 640px) {
+
+.modal--portfolio .pf-pins {
+  margin-top: 20px;
+}
+
+.modal__close {
+  top: 12px;
+  right: 12px;
+}
+
+.modal--portfolio .pf-thumbs {
+  padding-top: 0;
+  padding-bottom: 12px;
+}
+
+.modal--portfolio .pf-grid > div:nth-child(2) {
+  padding: 20px;
+}
+
+  .modal--portfolio .pf-info-row span:first-child,.modal--portfolio .pf-info-row span:last-child {
+  font-size: 16px;
+}
+
+.modal--portfolio .pf-pins {
+  margin-top: 24px;
+  gap: 20px;
+}
+
+.modal--portfolio .pf-pins .case-pin__label {
+  font-size: 16px;
+}
+
+.case-pins .case-pin + .case-pin::before {
+  left: 15px;
+}
+
+.modal__dialog {
+  padding: 20px;
+}
+
+.modal__title {
+  font-size: 24px;
+}
+
+.modal__lead {
+  font-size: 16px;
+  margin-bottom: 9px;
+}
+
+.modal-form .field input, .modal-form .field textarea {
+  font-size: 16px;
+}
+
+.modal-form .agreement .check {
+  width: 16px;
+  height: 16px;
+  flex: 0 0 16px;
+}
+
+.modal-form .agreement {
+  flex-wrap: nowrap;
+  font-size: 14px;
+  word-wrap: break-word;
+  align-items: start;
+}
+
+.modal-form .btn,.modal--thx .btn,.calc-nav .btn {
+  padding: 36px 12px 12px;
+  font-size: 16px;
+}
+
+.calc-prev-btn {
+  padding: 12px;
+  font-size: 16px;
+}
+
+.modal-form .btn::after, .modal--thx .btn::after, .calc-nav .btn::after {
+  top: 12px;
+  right: 12px;
+}
+
+.modal--thx p {
+  font-size: 16px;
+}
+
+}
+
+@media (max-width: 460px) {
+  .calc-nav .btn,.calc-prev-btn {
+    grid-column: 1 / 3;
+    padding: 36px 12px 12px;
+  }
+
+  .calculator-widget__title {
+    padding-right: 26px;
+  }
 }

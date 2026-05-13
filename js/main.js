@@ -199,6 +199,10 @@
       closeModal(closer.closest('.modal'));
       return;
     }
+    if (e.target.classList.contains('modal')) {
+      closeModal(e.target);
+      return;
+    }
   });
 
   // Agreement checkbox: let link open without toggling the checkbox

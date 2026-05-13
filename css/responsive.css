@@ -11,7 +11,7 @@
 
 /* tablet adjustments */
 @media (max-width: 1280px) {
-  :root { --container: 100%; --gutter: 28px; }
+  :root { --container: 100%; --gutter: 20px; }
 
   /* ---- Tablet header ---- */
   .site-header__row {
@@ -445,6 +445,7 @@
 
   .routes {
     padding-top: 80px;
+    padding-bottom: 80px;
   }
 
   .section-tag {
@@ -458,7 +459,12 @@
 
   .routes__title .pill {
     width: 36px;
+    vertical-align: 0;
     height: 36px;
+  }
+
+  .routes__bg img {
+    object-position: -600px;
   }
 
   .routes__title {
@@ -476,8 +482,13 @@
     height: 60vh;
   }
 
+  .routes__path {
+    width: calc(100% - 52px);
+  }
+
   .routes__path-line {
     font-size: 16px;
+    gap: 12px;
   }
 
   .routes__sub {
@@ -611,7 +622,7 @@
   }
 
   .calc__inner {
-    padding: 63px 20px 20px;
+    padding: 63px 0px 0px;
   }
 
   .calc__inner::after,.calc__inner::before {
@@ -1002,4 +1013,10 @@
 /* Print-friendly tweaks */
 @media print {
   .site-header, .site-footer, .modal, .carousel-nav { display: none; }
+}
+
+.br-mobile { display: none; }
+@media (max-width: 640px) {
+  .br-desktop { display: none; }
+  .br-mobile { display: block; }
 }
