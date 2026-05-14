@@ -895,33 +895,39 @@
     var section = document.querySelector('.steps');
     if (!heading || !section) return;
 
+    // Cache the original top offset of heading relative to section (set once on load/resize)
+    var headingOffsetInSection = 0;
+
+    function cacheOffsets() {
+      // Distance from section top to heading top (in document flow, no scroll)
+      headingOffsetInSection = heading.getBoundingClientRect().top - section.getBoundingClientRect().top;
+    }
+
     function update() {
       // Only active on wide screens (2-column layout)
       if (window.innerWidth <= 1280) {
         heading.style.transform = '';
-        heading.style.position = '';
-        heading.style.top = '';
         return;
       }
 
       var sectionRect = section.getBoundingClientRect();
-      var headingRect = heading.getBoundingClientRect();
-      var offsetTop = 100; // gap from top of viewport
+      var headingHeight = heading.offsetHeight;
+      var offsetTop = 100; // desired gap from viewport top
 
-      // How far the section top is above the viewport top
-      var sectionTop = sectionRect.top;
-      var sectionBottom = sectionRect.bottom;
-      var headingHeight = headingRect.height;
+      // How far the heading's natural position is from offsetTop
+      // heading natural viewport top = sectionRect.top + headingOffsetInSection (adjusted for current translate)
+      // We want heading to sit at offsetTop once sectionRect.top + headingOffsetInSection < offsetTop
+      var naturalHeadingTop = sectionRect.top + headingOffsetInSection;
 
-      // Start sticking when section top scrolls past offsetTop
-      if (sectionTop <= offsetTop) {
-        // Max translate: stop when heading bottom hits section bottom
-        var maxTranslate = sectionBottom - headingHeight - offsetTop - sectionRect.top + sectionTop;
-        // simpler: translate = how much the section top has scrolled past offsetTop
-        var translate = offsetTop - sectionTop;
-        // clamp: don't go beyond section bottom minus heading height minus padding
-        var limit = sectionRect.height - headingHeight - 60; // 60 = bottom padding
-        translate = Math.min(translate, limit);
+      if (naturalHeadingTop <= offsetTop) {
+        var translate = offsetTop - naturalHeadingTop;
+
+        // Max translate: heading bottom must not exceed section bottom minus bottom padding
+        var sectionBottom = sectionRect.bottom;
+        var bottomPadding = 60; // matches .steps .container padding-bottom
+        var maxTranslate = sectionBottom - (sectionRect.top + headingOffsetInSection) - headingHeight - bottomPadding;
+
+        translate = Math.min(translate, Math.max(maxTranslate, 0));
         translate = Math.max(translate, 0);
         heading.style.transform = 'translateY(' + translate + 'px)';
       } else {
@@ -929,8 +935,17 @@
       }
     }
 
+    // On resize recalculate the static offset (before any transform)
+    window.addEventListener('resize', function () {
+      heading.style.transform = '';
+      cacheOffsets();
+      update();
+    }, { passive: true });
+
     window.addEventListener('scroll', update, { passive: true });
-    window.addEventListener('resize', update, { passive: true });
+
+    // Init
+    cacheOffsets();
     update();
   }());
 
