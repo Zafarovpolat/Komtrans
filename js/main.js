@@ -1008,13 +1008,20 @@
     ];
 
     var nodes = document.querySelectorAll(selectors.join(','));
-    nodes.forEach(function (el) {
+
+    // Filter out elements inside carousel tracks and mobile sliders —
+    // they have their own slide animation and shouldn't get the global fade-in.
+    var filteredNodes = Array.prototype.filter.call(nodes, function (el) {
+      return !el.closest('.carousel-track') && !el.closest('.features-slider__track');
+    });
+
+    filteredNodes.forEach(function (el) {
       el.classList.add('reveal');
     });
 
     // Stagger groups within the same parent for a wave effect.
     var seen = new WeakMap();
-    nodes.forEach(function (el) {
+    filteredNodes.forEach(function (el) {
       var parent = el.parentElement;
       if (!parent) return;
       var idx = seen.get(parent) || 0;
@@ -1033,7 +1040,7 @@
       });
     }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
 
-    nodes.forEach(function (el) { io.observe(el); });
+    filteredNodes.forEach(function (el) { io.observe(el); });
   }());
 
 })();
