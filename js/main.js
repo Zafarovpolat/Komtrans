@@ -1000,23 +1000,27 @@
       '.calc__inner',
       '.step-item',
       '.garant-card',
-      '.case-card',
-      '.review-card',
+      '#carousel-portfolio',
+      '#carousel-reviews',
       '.faq-item',
       '.faq__cta',
       '.site-footer__top'
     ];
 
+    // Carousels get fade-only (no translateY) because overflow:hidden clips vertical movement
+    var fadeOnlySelectors = ['#carousel-portfolio', '#carousel-reviews'];
+
     var nodes = document.querySelectorAll(selectors.join(','));
 
     // Filter out elements inside carousel tracks and mobile sliders —
-    // they have their own slide animation and shouldn't get the global fade-in.
+    // the whole carousel wrap animates instead of individual slides.
     var filteredNodes = Array.prototype.filter.call(nodes, function (el) {
       return !el.closest('.carousel-track') && !el.closest('.features-slider__track');
     });
 
     filteredNodes.forEach(function (el) {
-      el.classList.add('reveal');
+      var isFadeOnly = fadeOnlySelectors.some(function (s) { return el.matches(s); });
+      el.classList.add(isFadeOnly ? 'reveal--fade' : 'reveal');
     });
 
     // Stagger groups within the same parent for a wave effect.
