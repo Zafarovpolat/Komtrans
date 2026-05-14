@@ -651,9 +651,9 @@
   top: 0;
   bottom: 0;
   right: 0;
-  background: url("../assets/img/garant-bg.png") left top/cover no-repeat;
   z-index: -1;
-  
+  overflow: hidden;
+
   /* РћР±СЂРµР·Р°РµРј РїСЂР°РІС‹Р№ РЅРёР¶РЅРёР№ СѓРіРѕР» */
 clip-path: polygon(
     0 0, 
@@ -661,6 +661,17 @@ clip-path: polygon(
     100% 80%, 
     0 100%
   );
+}
+.garant__bg::before {
+  content: "";
+  position: absolute;
+  top: -35%;
+  left: 0;
+  right: 0;
+  height: 170%; /* extra headroom for parallax translate */
+  background: url("../assets/img/garant-bg.png") left top/cover no-repeat;
+  transform: translate3d(0, var(--py, 0), 0);
+  will-change: transform;
 }
 
 .garant-card {
