@@ -1035,43 +1035,86 @@
 
   // ---------- Parallax ----------
   (function () {
-    // hero bg
-    var heroBgImg = document.querySelector('.hero__bg img');
-    // routes bg
-    var routesBgImg = document.querySelector('.routes__bg img');
-    // garant bg
-    var garantBg = document.querySelector('.garant__bg');
+    var prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReduced) return;
 
-    function onScroll() {
+    var heroBgImg  = document.querySelector('.hero__bg img');
+    var routesBg   = document.querySelector('.routes__bg');   // animate the wrapper → both img and ::before move
+    var garantBg   = document.querySelector('.garant__bg');   // ::before moves via --py
+
+    // Strength: peak translate in pixels at the section's center moment.
+    // Headroom in CSS: 35% top + 35% bottom of the image height (so up to ~250-300px safe).
+    var ROUTES_STRENGTH = 250;
+    var GARANT_STRENGTH = 220;
+
+    /**
+     * Section progress in [-1; 1]:
+     *   -1 → section just entered from below
+     *    0 → section center aligned with viewport center
+     *   +1 → section just left to top
+     */
+    function sectionProgress(rect) {
+      var vh = window.innerHeight;
+      var sectionCenter = rect.top + rect.height / 2;
+      var viewportCenter = vh / 2;
+      var range = (vh + rect.height) / 2;
+      var p = (viewportCenter - sectionCenter) / range;
+      if (p > 1) p = 1;
+      if (p < -1) p = -1;
+      return p;
+    }
+
+    function inView(rect) {
+      return rect.bottom > -50 && rect.top < window.innerHeight + 50;
+    }
+
+    function update() {
       var sy = window.scrollY;
 
       if (heroBgImg) {
-        // Move bg up slightly as user scrolls — creates depth
-        heroBgImg.style.transform = 'translateY(' + (sy * 0.35) + 'px)';
+        // Hero starts at top of page — classic damped down-parallax.
+        // Height is 150%, top -25% → ~25% headroom each side.
+        heroBgImg.style.transform = 'translate3d(0,' + (sy * 0.5) + 'px, 0)';
       }
 
-      if (routesBgImg) {
-        var routesRect = routesBgImg.closest('.routes').getBoundingClientRect();
-        if (routesRect.bottom > 0 && routesRect.top < window.innerHeight) {
-          var progress = (window.innerHeight - routesRect.top) / (window.innerHeight + routesRect.height);
-          routesBgImg.style.transform = 'translateY(' + (progress * -60) + 'px)';
+      if (routesBg) {
+        var rSection = routesBg.closest('.routes');
+        if (rSection) {
+          var rRect = rSection.getBoundingClientRect();
+          if (inView(rRect)) {
+            var rp = sectionProgress(rRect);
+            // Negative sign → bg moves opposite to scroll direction (deeper feel)
+            routesBg.style.setProperty('--py', (-rp * ROUTES_STRENGTH) + 'px');
+          }
         }
       }
 
       if (garantBg) {
-        var garantSection = garantBg.closest('.garant');
-        if (garantSection) {
-          var gRect = garantSection.getBoundingClientRect();
-          if (gRect.bottom > 0 && gRect.top < window.innerHeight) {
-            var gProgress = (window.innerHeight - gRect.top) / (window.innerHeight + gRect.height);
-            garantBg.style.transform = 'translateY(' + (gProgress * -50) + 'px)';
+        var gSection = garantBg.closest('.garant');
+        if (gSection) {
+          var gRect = gSection.getBoundingClientRect();
+          if (inView(gRect)) {
+            var gp = sectionProgress(gRect);
+            garantBg.style.setProperty('--py', (-gp * GARANT_STRENGTH) + 'px');
           }
         }
       }
     }
 
+    // rAF throttle
+    var ticking = false;
+    function onScroll() {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(function () {
+        update();
+        ticking = false;
+      });
+    }
+
     window.addEventListener('scroll', onScroll, { passive: true });
-    onScroll();
+    window.addEventListener('resize', onScroll);
+    update();
   }());
 
   // ---------- Sticky steps heading ----------
