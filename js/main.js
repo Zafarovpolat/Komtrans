@@ -919,6 +919,114 @@
     });
   }());
 
+  // ---------- Sticky header ----------
+  (function () {
+    var header = document.querySelector('.site-header');
+    var placeholder = document.getElementById('header-placeholder');
+    if (!header) return;
+
+    // Only sticky on index (has is-overlay class)
+    if (!header.classList.contains('is-overlay')) return;
+
+    var triggered = false;
+    var headerHeight = header.offsetHeight || 84;
+
+    function onScroll() {
+      if (window.scrollY > window.innerHeight * 0.85) {
+        if (!triggered) {
+          triggered = true;
+          header.classList.add('is-sticky');
+          header.classList.remove('is-overlay');
+          if (placeholder) {
+            placeholder.classList.add('is-active');
+            placeholder.style.height = headerHeight + 'px';
+          }
+        }
+      } else {
+        if (triggered) {
+          triggered = false;
+          header.classList.remove('is-sticky');
+          header.classList.add('is-overlay');
+          if (placeholder) placeholder.classList.remove('is-active');
+        }
+      }
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+  }());
+
+  // ---------- Hero entry animation ----------
+  (function () {
+    var header = document.querySelector('.site-header');
+    var heroTitle = document.querySelector('.hero__title');
+    var heroLead  = document.querySelector('.hero__lead');
+    var heroMetrics = document.querySelectorAll('.hero__calc, .hero__metric');
+
+    var targets = [];
+    if (header)     targets.push({ el: header,    delay: 0   });
+    if (heroTitle)  targets.push({ el: heroTitle,  delay: 180 });
+    if (heroLead)   targets.push({ el: heroLead,   delay: 360 });
+    heroMetrics.forEach(function (m, i) {
+      targets.push({ el: m, delay: 520 + i * 120 });
+    });
+
+    targets.forEach(function (t) {
+      t.el.classList.add('hero-anim');
+    });
+
+    // Trigger after a tiny paint delay
+    requestAnimationFrame(function () {
+      requestAnimationFrame(function () {
+        targets.forEach(function (t) {
+          setTimeout(function () {
+            t.el.classList.add('is-visible');
+          }, t.delay);
+        });
+      });
+    });
+  }());
+
+  // ---------- Parallax ----------
+  (function () {
+    // hero bg
+    var heroBgImg = document.querySelector('.hero__bg img');
+    // routes bg
+    var routesBgImg = document.querySelector('.routes__bg img');
+    // garant bg
+    var garantBg = document.querySelector('.garant__bg');
+
+    function onScroll() {
+      var sy = window.scrollY;
+
+      if (heroBgImg) {
+        // Move bg up slightly as user scrolls — creates depth
+        heroBgImg.style.transform = 'translateY(' + (sy * 0.35) + 'px)';
+      }
+
+      if (routesBgImg) {
+        var routesRect = routesBgImg.closest('.routes').getBoundingClientRect();
+        if (routesRect.bottom > 0 && routesRect.top < window.innerHeight) {
+          var progress = (window.innerHeight - routesRect.top) / (window.innerHeight + routesRect.height);
+          routesBgImg.style.transform = 'translateY(' + (progress * -60) + 'px)';
+        }
+      }
+
+      if (garantBg) {
+        var garantSection = garantBg.closest('.garant');
+        if (garantSection) {
+          var gRect = garantSection.getBoundingClientRect();
+          if (gRect.bottom > 0 && gRect.top < window.innerHeight) {
+            var gProgress = (window.innerHeight - gRect.top) / (window.innerHeight + gRect.height);
+            garantBg.style.transform = 'translateY(' + (gProgress * -50) + 'px)';
+          }
+        }
+      }
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  }());
+
   // ---------- Sticky steps heading ----------
   (function () {
     var heading = document.querySelector('.steps__heading');
@@ -986,11 +1094,8 @@
     // Selectors of elements to animate when they enter the viewport.
     // Picks section titles, paragraphs/cards/rows — broad coverage with sensible defaults.
     var selectors = [
-      'h1', 'h2', 'h3',
+      'h2', 'h3',
       '.section-tag',
-      '.hero__lead',
-      '.hero__metric',
-      '.hero__calc',
       '.type-card',
       '.routes__row',
       '.routes__after',
@@ -1030,7 +1135,7 @@
       if (!parent) return;
       var idx = seen.get(parent) || 0;
       // Cap delay so very long lists don't take forever to reveal.
-      var delay = Math.min(idx * 70, 350);
+      var delay = Math.min(idx * 110, 500);
       el.style.transitionDelay = delay + 'ms';
       seen.set(parent, idx + 1);
     });
@@ -1042,7 +1147,7 @@
           io.unobserve(entry.target);
         }
       });
-    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    }, { threshold: 0.18, rootMargin: '0px 0px -60px 0px' });
 
     filteredNodes.forEach(function (el) { io.observe(el); });
   }());
