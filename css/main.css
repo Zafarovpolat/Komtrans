@@ -75,17 +75,33 @@
   transform: translateY(0);
 }
 
-/* Header fades in only (no translate — it's position:absolute at top) */
+/* Header fades in only (no translate — it's position:absolute at top).
+   !important ensures opacity:0 wins against other rules on page load. */
 .hero-anim--header {
-  opacity: 0;
-  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  opacity: 0 !important;
+  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1) !important;
   will-change: opacity;
 }
 .hero-anim--header.is-visible {
-  opacity: 1;
+  opacity: 1 !important;
 }
 
 /* ---- Sticky header ---- */
+/* Base state when sticky is being prepared (before slide-in) */
+.site-header.is-sticky-hidden {
+  position: fixed !important;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: rgba(25, 30, 36, 0.97);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  box-shadow: 0 2px 16px rgba(0,0,0,0.18);
+  z-index: 100;
+  opacity: 0;
+  transform: translateY(-100%);
+  transition: none;
+}
 .site-header.is-sticky {
   position: fixed !important;
   top: 0;
@@ -95,14 +111,24 @@
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
   box-shadow: 0 2px 16px rgba(0,0,0,0.18);
-  transition: background 0.3s ease, box-shadow 0.3s ease;
   z-index: 100;
+  opacity: 1;
+  transform: translateY(0);
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+              opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 }
 /* When sticky — keep logo/nav white (dark bg) */
 .site-header.is-sticky .site-header__nav a,
 .site-header.is-sticky .phone-num,
 .site-header.is-sticky .phone-msg a {
   color: #fff;
+}
+/* Dropdown links must stay dark even inside sticky header */
+.site-header.is-sticky .dd-menu a {
+  color: var(--c-text);
+}
+.site-header.is-sticky .dd-menu a:hover {
+  color: var(--c-red);
 }
 /* Placeholder to avoid layout jump when header becomes fixed */
 .site-header-placeholder {

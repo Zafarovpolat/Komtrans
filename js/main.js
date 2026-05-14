@@ -931,23 +931,37 @@
     var triggered = false;
     var headerHeight = header.offsetHeight || 84;
 
+    function showSticky() {
+      // 1. Apply fixed position with no transition (off-screen)
+      header.classList.remove('is-overlay');
+      header.classList.add('is-sticky-hidden');
+      // 2. Force reflow so browser registers the hidden state
+      header.offsetHeight; // eslint-disable-line no-unused-expressions
+      // 3. Now trigger the slide-in transition
+      header.classList.remove('is-sticky-hidden');
+      header.classList.add('is-sticky');
+      if (placeholder) {
+        placeholder.classList.add('is-active');
+        placeholder.style.height = headerHeight + 'px';
+      }
+    }
+
+    function hideSticky() {
+      header.classList.remove('is-sticky');
+      header.classList.add('is-overlay');
+      if (placeholder) placeholder.classList.remove('is-active');
+    }
+
     function onScroll() {
       if (window.scrollY > window.innerHeight * 0.85) {
         if (!triggered) {
           triggered = true;
-          header.classList.add('is-sticky');
-          header.classList.remove('is-overlay');
-          if (placeholder) {
-            placeholder.classList.add('is-active');
-            placeholder.style.height = headerHeight + 'px';
-          }
+          showSticky();
         }
       } else {
         if (triggered) {
           triggered = false;
-          header.classList.remove('is-sticky');
-          header.classList.add('is-overlay');
-          if (placeholder) placeholder.classList.remove('is-active');
+          hideSticky();
         }
       }
     }
@@ -970,18 +984,27 @@
       targets.push({ el: m, delay: 580 + i * 130, cls: 'hero-anim' });
     });
 
+    // Apply hidden state via inline style BEFORE first paint,
+    // then replace with CSS class so the transition kicks in.
     targets.forEach(function (t) {
-      t.el.classList.add(t.cls);
+      t.el.style.opacity = '0';
+      if (t.cls !== 'hero-anim--header') {
+        t.el.style.transform = 'translateY(40px)';
+      }
     });
 
-    // Force browser to paint opacity:0 first, then trigger transitions.
-    // Double rAF + small base timeout ensures the initial hidden state is rendered.
+    // After browser has painted opacity:0, switch to class-based transition
     requestAnimationFrame(function () {
       requestAnimationFrame(function () {
         targets.forEach(function (t) {
+          // Remove inline style overrides, add CSS class (which sets opacity:0 via CSS)
+          t.el.style.opacity = '';
+          t.el.style.transform = '';
+          t.el.classList.add(t.cls);
+          // Trigger transition after a frame
           setTimeout(function () {
             t.el.classList.add('is-visible');
-          }, 50 + t.delay);   // 50ms base so browser paints opacity:0 first
+          }, t.delay);
         });
       });
     });
