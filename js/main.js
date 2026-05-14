@@ -846,6 +846,36 @@
     }
   });
 
+  // ---------- Mobile menu nav links — close menu then smooth scroll ----------
+  (function () {
+    var menuModal = document.getElementById('modal-menu');
+    if (!menuModal) return;
+
+    menuModal.addEventListener('click', function (e) {
+      var link = e.target.closest('.menu-list a[href]');
+      if (!link) return;
+
+      var href = link.getAttribute('href');
+      // Only intercept hash links (in-page anchors)
+      if (!href || !href.startsWith('#')) return;
+
+      e.preventDefault();
+
+      var targetId = href.slice(1);
+      var target = document.getElementById(targetId);
+
+      // Close the menu first
+      closeModal(menuModal);
+
+      // Wait for the close animation to finish (matches modal transition: 0.28s)
+      setTimeout(function () {
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }, 300);
+    });
+  }());
+
   // ---------- Header "Ещё" dropdown — click toggle on touch / keyboard ----------
   (function () {
     var ddWraps = document.querySelectorAll('.has-dd-wrap');
