@@ -729,6 +729,10 @@
 
   // Portfolio: 4 slides, infinite loop
   makeCarousel('portfolio', 'carousel-portfolio', function () {
+    if (window.innerWidth <= 640) {
+      var wrap = document.getElementById('carousel-portfolio');
+      return wrap ? wrap.offsetWidth / 320 : 1;
+    }
     return window.innerWidth <= 1024 ? 1.15 : 2;
   }, true);
 
@@ -828,6 +832,10 @@
 
   // Reviews: infinite loop — restore border-left on the first visible card after each slide
   makeCarousel('reviews', 'carousel-reviews', function () {
+    if (window.innerWidth <= 640) {
+      var wrap = document.getElementById('carousel-reviews');
+      return wrap ? wrap.offsetWidth / 320 : 1;
+    }
     return window.innerWidth <= 1024 ? 1.15 : window.innerWidth <= 1280 ? 2 : 3;
   }, true, function (track, current) {
     Array.from(track.children).forEach(function (card) {
