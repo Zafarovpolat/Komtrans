@@ -930,16 +930,21 @@
 
     var triggered = false;
     var headerHeight = header.offsetHeight || 84;
+    var STICKY_TRANSITION_MS = 400;
+    var leavingTimer = null;
 
     function showSticky() {
-      // 1. Apply fixed position with no transition (off-screen)
-      header.classList.remove('is-overlay');
-      header.classList.add('is-sticky-hidden');
-      // 2. Force reflow so browser registers the hidden state
+      if (leavingTimer) {
+        clearTimeout(leavingTimer);
+        leavingTimer = null;
+      }
+      // 1. Put header into fixed position, off-screen, with no transition.
+      header.classList.remove('is-overlay', 'is-sticky-leaving');
+      header.classList.add('is-sticky', 'is-sticky-entering');
+      // 2. Force reflow so the browser registers the off-screen state.
       header.offsetHeight; // eslint-disable-line no-unused-expressions
-      // 3. Now trigger the slide-in transition
-      header.classList.remove('is-sticky-hidden');
-      header.classList.add('is-sticky');
+      // 3. Remove the entering modifier → the .is-sticky transition runs the slide-in.
+      header.classList.remove('is-sticky-entering');
       if (placeholder) {
         placeholder.classList.add('is-active');
         placeholder.style.height = headerHeight + 'px';
@@ -947,9 +952,25 @@
     }
 
     function hideSticky() {
-      header.classList.remove('is-sticky');
-      header.classList.add('is-overlay');
+      // Animate out: keep .is-sticky for fixed positioning, add leaving modifier
+      // to transition opacity/transform back off-screen.
+      header.classList.add('is-sticky-leaving');
       if (placeholder) placeholder.classList.remove('is-active');
+
+      if (leavingTimer) clearTimeout(leavingTimer);
+      leavingTimer = setTimeout(function () {
+        leavingTimer = null;
+        // Only revert if we're still in the leaving state (not re-shown mid-animation).
+        if (!header.classList.contains('is-sticky-leaving')) return;
+        // Suppress the hero-anim--header transition during cleanup so the header
+        // doesn't animate back in from translateY(-100%) when we swap classes.
+        header.style.transition = 'none';
+        header.classList.remove('is-sticky', 'is-sticky-leaving');
+        header.classList.add('is-overlay');
+        // Force reflow so the no-transition state is applied before we re-enable.
+        header.offsetHeight; // eslint-disable-line no-unused-expressions
+        header.style.transition = '';
+      }, STICKY_TRANSITION_MS + 30);
     }
 
     function onScroll() {
@@ -988,7 +1009,9 @@
     // then replace with CSS class so the transition kicks in.
     targets.forEach(function (t) {
       t.el.style.opacity = '0';
-      if (t.cls !== 'hero-anim--header') {
+      if (t.cls === 'hero-anim--header') {
+        t.el.style.transform = 'translateY(-24px)';
+      } else {
         t.el.style.transform = 'translateY(40px)';
       }
     });
