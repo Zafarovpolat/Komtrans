@@ -143,9 +143,6 @@
     grid-template-columns: 1fr;
     gap: 40px;
   }
-  .steps__heading {
-    position: static;
-  }
   .faq__grid {
     grid-template-columns: 1fr;
     gap: 40px;

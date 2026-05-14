@@ -535,8 +535,6 @@
 }
 .steps__heading {
   max-width: 560px;
-  position: sticky;
-  top: 100px;
   align-self: start;
 }
 .steps__heading h2 {

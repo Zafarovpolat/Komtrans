@@ -889,7 +889,52 @@
     });
   }());
 
-  // ---------- Scroll-triggered reveal animations (sibur-style) ----------
+  // ---------- Sticky steps heading ----------
+  (function () {
+    var heading = document.querySelector('.steps__heading');
+    var section = document.querySelector('.steps');
+    if (!heading || !section) return;
+
+    function update() {
+      // Only active on wide screens (2-column layout)
+      if (window.innerWidth <= 1280) {
+        heading.style.transform = '';
+        heading.style.position = '';
+        heading.style.top = '';
+        return;
+      }
+
+      var sectionRect = section.getBoundingClientRect();
+      var headingRect = heading.getBoundingClientRect();
+      var offsetTop = 100; // gap from top of viewport
+
+      // How far the section top is above the viewport top
+      var sectionTop = sectionRect.top;
+      var sectionBottom = sectionRect.bottom;
+      var headingHeight = headingRect.height;
+
+      // Start sticking when section top scrolls past offsetTop
+      if (sectionTop <= offsetTop) {
+        // Max translate: stop when heading bottom hits section bottom
+        var maxTranslate = sectionBottom - headingHeight - offsetTop - sectionRect.top + sectionTop;
+        // simpler: translate = how much the section top has scrolled past offsetTop
+        var translate = offsetTop - sectionTop;
+        // clamp: don't go beyond section bottom minus heading height minus padding
+        var limit = sectionRect.height - headingHeight - 60; // 60 = bottom padding
+        translate = Math.min(translate, limit);
+        translate = Math.max(translate, 0);
+        heading.style.transform = 'translateY(' + translate + 'px)';
+      } else {
+        heading.style.transform = 'translateY(0)';
+      }
+    }
+
+    window.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', update, { passive: true });
+    update();
+  }());
+
+
   (function () {
     if (!('IntersectionObserver' in window)) return;
 
