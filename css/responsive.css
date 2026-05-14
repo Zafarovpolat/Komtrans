@@ -98,7 +98,8 @@
     background: url("../assets/icons/calc-hash.svg") center/contain no-repeat;
   }
 
-  .site-header.is-overlay .container {
+  .site-header.is-overlay .container,
+  .site-header.is-sticky .container {
     padding: 0;
   }
 
