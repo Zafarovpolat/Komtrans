@@ -963,24 +963,25 @@
     var heroMetrics = document.querySelectorAll('.hero__calc, .hero__metric');
 
     var targets = [];
-    if (header)     targets.push({ el: header,    delay: 0   });
-    if (heroTitle)  targets.push({ el: heroTitle,  delay: 180 });
-    if (heroLead)   targets.push({ el: heroLead,   delay: 360 });
+    if (header)     targets.push({ el: header,    delay: 0,   cls: 'hero-anim--header' });
+    if (heroTitle)  targets.push({ el: heroTitle,  delay: 200, cls: 'hero-anim' });
+    if (heroLead)   targets.push({ el: heroLead,   delay: 400, cls: 'hero-anim' });
     heroMetrics.forEach(function (m, i) {
-      targets.push({ el: m, delay: 520 + i * 120 });
+      targets.push({ el: m, delay: 580 + i * 130, cls: 'hero-anim' });
     });
 
     targets.forEach(function (t) {
-      t.el.classList.add('hero-anim');
+      t.el.classList.add(t.cls);
     });
 
-    // Trigger after a tiny paint delay
+    // Force browser to paint opacity:0 first, then trigger transitions.
+    // Double rAF + small base timeout ensures the initial hidden state is rendered.
     requestAnimationFrame(function () {
       requestAnimationFrame(function () {
         targets.forEach(function (t) {
           setTimeout(function () {
             t.el.classList.add('is-visible');
-          }, t.delay);
+          }, 50 + t.delay);   // 50ms base so browser paints opacity:0 first
         });
       });
     });

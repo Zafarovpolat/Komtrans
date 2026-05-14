@@ -75,6 +75,16 @@
   transform: translateY(0);
 }
 
+/* Header fades in only (no translate — it's position:absolute at top) */
+.hero-anim--header {
+  opacity: 0;
+  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity;
+}
+.hero-anim--header.is-visible {
+  opacity: 1;
+}
+
 /* ---- Sticky header ---- */
 .site-header.is-sticky {
   position: fixed !important;
