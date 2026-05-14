@@ -458,7 +458,7 @@ body {
 .site-footer__right {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 32px;
+  gap: 56px 32px;
 }
 .site-footer__title {
   font-weight: 500;
@@ -469,7 +469,6 @@ body {
   color: #fff;
   display: flex;
   flex-direction: column;
-  gap: 8px;
 }
 .site-footer__title .row2 {
   display: inline-flex;
@@ -485,6 +484,7 @@ body {
   background: var(--c-red);
   border-radius: 50%;
   flex-shrink: 0;
+  transform: translateY(4px);
 }
 .site-footer__title .ico img {
   width: 22px;
@@ -493,7 +493,7 @@ body {
 .site-footer__col {
   display: flex;
   flex-direction: column;
-  gap: 36px;
+  gap: 80px;
 }
 .site-footer__col .row {
   display: flex;
@@ -509,6 +509,7 @@ body {
 .site-footer__col p,
 .site-footer__col a {
   font-size: 20px;
+  line-height: 1.2;
   font-weight: 400;
   letter-spacing: -0.01em;
   color: #fff;
@@ -538,7 +539,7 @@ body {
   margin-top: 24px;
 }
 .site-footer__cta .btn {
-  padding: 44px 16px 16px;
+  padding: 39px 16px 16px;
   font-size: 18px;
   justify-content: start;
   position: relative;

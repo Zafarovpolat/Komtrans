@@ -600,13 +600,14 @@
   color: var(--c-text-muted);
   letter-spacing: -0.01em;
   margin: 0;
-  margin-bottom: 16px;
 }
 .step-item__body .btn--ghost {
   align-self: flex-start;
   border-bottom: 2px dashed;
   font-size: 18px;
   font-weight: 500;
+  line-height: 1;
+  margin-top: 16px;
 }
 
 /* ---------- Garant section ---------- */
