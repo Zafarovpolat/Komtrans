@@ -1035,43 +1035,97 @@
 
   // ---------- Parallax ----------
   (function () {
-    // hero bg
+    // Respect reduced-motion preference
+    var prefersReduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)');
+    if (prefersReduce && prefersReduce.matches) return;
+
+    // Existing parallax targets (preserve original behavior)
     var heroBgImg = document.querySelector('.hero__bg img');
-    // routes bg
     var routesBgImg = document.querySelector('.routes__bg img');
-    // garant bg
     var garantBg = document.querySelector('.garant__bg');
 
-    function onScroll() {
-      var sy = window.scrollY;
+    // New parallax targets — apply via CSS variables so they don't affect
+    // image dimensions or other inline styles (e.g. crossfade backgroundImage).
+    var calcInner = document.querySelector('.calc__inner');
+    var fvBgA = document.querySelector('.fv-bg--a');
+    var fvBgB = document.querySelector('.fv-bg--b');
+    var featuresVisual = document.querySelector('.features__visual');
+    var calcSection = calcInner && calcInner.closest('.calc');
+    var routesSection = routesBgImg && routesBgImg.closest('.routes');
+    var garantSection = garantBg && garantBg.closest('.garant');
 
+    function progressFor(rect) {
+      // 0 = section just entering from bottom, 0.5 = centered, 1 = leaving top
+      return (window.innerHeight - rect.top) / (window.innerHeight + rect.height);
+    }
+
+    var ticking = false;
+
+    function update() {
+      ticking = false;
+      var sy = window.scrollY;
+      var vh = window.innerHeight;
+
+      // Hero: original behavior — translate proportional to scrollY
       if (heroBgImg) {
-        // Move bg up slightly as user scrolls — creates depth
         heroBgImg.style.transform = 'translateY(' + (sy * 0.35) + 'px)';
       }
 
-      if (routesBgImg) {
-        var routesRect = routesBgImg.closest('.routes').getBoundingClientRect();
-        if (routesRect.bottom > 0 && routesRect.top < window.innerHeight) {
-          var progress = (window.innerHeight - routesRect.top) / (window.innerHeight + routesRect.height);
-          routesBgImg.style.transform = 'translateY(' + (progress * -60) + 'px)';
+      // Routes: original behavior — translate based on section progress
+      if (routesBgImg && routesSection) {
+        var rRect = routesSection.getBoundingClientRect();
+        if (rRect.bottom > 0 && rRect.top < vh) {
+          var rProgress = progressFor(rRect);
+          routesBgImg.style.transform = 'translateY(' + (rProgress * -60) + 'px)';
         }
       }
 
-      if (garantBg) {
-        var garantSection = garantBg.closest('.garant');
-        if (garantSection) {
-          var gRect = garantSection.getBoundingClientRect();
-          if (gRect.bottom > 0 && gRect.top < window.innerHeight) {
-            var gProgress = (window.innerHeight - gRect.top) / (window.innerHeight + gRect.height);
-            garantBg.style.transform = 'translateY(' + (gProgress * -50) + 'px)';
-          }
+      // Garant: original behavior — translate based on section progress
+      if (garantBg && garantSection) {
+        var gRect = garantSection.getBoundingClientRect();
+        if (gRect.bottom > 0 && gRect.top < vh) {
+          var gProgress = progressFor(gRect);
+          garantBg.style.transform = 'translateY(' + (gProgress * -50) + 'px)';
+        }
+      }
+
+      // Calc: shift pseudo-element bg via CSS var (symmetric around center).
+      if (calcInner && calcSection) {
+        var cRect = calcSection.getBoundingClientRect();
+        if (cRect.bottom > 0 && cRect.top < vh) {
+          var cProgress = progressFor(cRect);
+          if (cProgress < 0) cProgress = 0;
+          else if (cProgress > 1) cProgress = 1;
+          var cOffset = (cProgress - 0.5) * 2 * 50;
+          calcInner.style.setProperty('--calc-bg-y', cOffset.toFixed(1) + 'px');
+        }
+      }
+
+      // Features visual: shift bg-position on both crossfade layers via CSS var
+      if (featuresVisual && (fvBgA || fvBgB)) {
+        var fRect = featuresVisual.getBoundingClientRect();
+        if (fRect.bottom > 0 && fRect.top < vh) {
+          var fProgress = progressFor(fRect);
+          if (fProgress < 0) fProgress = 0;
+          else if (fProgress > 1) fProgress = 1;
+          var fOffset = (fProgress - 0.5) * 2 * 70;
+          var fStr = fOffset.toFixed(1) + 'px';
+          if (fvBgA) fvBgA.style.setProperty('--fv-bg-y', fStr);
+          if (fvBgB) fvBgB.style.setProperty('--fv-bg-y', fStr);
         }
       }
     }
 
+    function onScroll() {
+      if (!ticking) {
+        ticking = true;
+        window.requestAnimationFrame(update);
+      }
+    }
+
     window.addEventListener('scroll', onScroll, { passive: true });
-    onScroll();
+    window.addEventListener('resize', onScroll, { passive: true });
+    update();
   }());
 
   // ---------- Sticky steps heading ----------
