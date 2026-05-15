@@ -195,6 +195,19 @@
 
     m.classList.add('is-open');
     document.body.style.overflow = 'hidden';
+
+    // Auto-focus first form input when a modal containing a form opens
+    var form = m.querySelector('form');
+    if (form) {
+      var first = form.querySelector(
+        'input:not([type="hidden"]):not([disabled]):not([readonly]), textarea:not([disabled]):not([readonly]), select:not([disabled])'
+      );
+      if (first) {
+        setTimeout(function () {
+          try { first.focus({ preventScroll: true }); } catch (_) { first.focus(); }
+        }, 180);
+      }
+    }
   }
   function closeModal(modal) {
     if (!modal) return;
@@ -212,6 +225,43 @@
   // Expose for other modules
   window.openModal = openModal;
   window.closeModal = closeModal;
+
+  // Smoothly scroll to a section by id, optionally focusing its first form input.
+  function smoothScrollToSection(targetId) {
+    var target = document.getElementById(targetId);
+    if (!target) return null;
+    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    var form = target.querySelector('form');
+    if (form) {
+      var first = form.querySelector(
+        'input:not([type="hidden"]):not([disabled]):not([readonly]), textarea:not([disabled]):not([readonly]), select:not([disabled])'
+      );
+      if (first) {
+        // Wait for smooth scroll to settle before focusing so we don't fight it.
+        setTimeout(function () {
+          try { first.focus({ preventScroll: true }); } catch (_) { first.focus(); }
+        }, 700);
+      }
+    }
+    return target;
+  }
+  window.smoothScrollToSection = smoothScrollToSection;
+
+  // Global in-page anchor handler: smooth-scroll and keep #hash out of the URL.
+  document.addEventListener('click', function (e) {
+    // Let modal openers / closers handle themselves.
+    if (e.target.closest('[data-modal], [data-close]')) return;
+    var a = e.target.closest('a[href]');
+    if (!a) return;
+    // Skip dropdown toggle "Ещё" — JS handles it separately.
+    if (a.classList.contains('has-dd')) return;
+    var href = a.getAttribute('href');
+    if (!href || href.charAt(0) !== '#' || href.length < 2) return;
+    var id = href.slice(1);
+    if (!document.getElementById(id)) return;
+    e.preventDefault();
+    smoothScrollToSection(id);
+  });
 
   document.addEventListener('click', function (e) {
     const opener = e.target.closest('[data-modal]');
@@ -753,13 +803,37 @@
     function show(idx, animate) {
       if (!images.length) return;
       idx = ((idx % images.length) + images.length) % images.length;
+      var prevImg = mainImg.style.backgroundImage;
+      var nextImg = url(images[idx]);
+      var changed = prevImg !== nextImg;
       currentIdx = idx;
-      if (animate) {
-        mainImg.classList.remove('is-fading');
-        // restart transition
-        void mainImg.offsetWidth;
+
+      if (animate && changed && prevImg) {
+        // Crossfade: snapshot the previous image into a fade-out overlay
+        // sitting on top of the main image, then swap the main image to the
+        // new one. The overlay's opacity transitions to 0, revealing the new.
+        var fade = document.createElement('div');
+        fade.className = 'pf-main-img__fade';
+        fade.style.backgroundImage = prevImg;
+        mainImg.appendChild(fade);
+        mainImg.style.backgroundImage = nextImg;
+        // Force layout so the transition runs from opacity:1 -> 0.
+        // eslint-disable-next-line no-unused-expressions
+        fade.offsetWidth;
+        fade.classList.add('is-fading-out');
+        var done = false;
+        var cleanup = function () {
+          if (done) return;
+          done = true;
+          if (fade.parentNode) fade.parentNode.removeChild(fade);
+        };
+        fade.addEventListener('transitionend', cleanup);
+        // Safety fallback in case transitionend doesn't fire.
+        setTimeout(cleanup, 600);
+      } else {
+        mainImg.style.backgroundImage = nextImg;
       }
-      mainImg.style.backgroundImage = url(images[idx]);
+
       Array.from(thumbsWrap.children).forEach(function (t, i) {
         if (i === idx) t.classList.add('is-active');
         else t.classList.remove('is-active');
@@ -862,15 +936,17 @@
       e.preventDefault();
 
       var targetId = href.slice(1);
-      var target = document.getElementById(targetId);
 
       // Close the menu first
       closeModal(menuModal);
 
       // Wait for the close animation to finish (matches modal transition: 0.28s)
       setTimeout(function () {
-        if (target) {
-          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        if (typeof window.smoothScrollToSection === 'function') {
+          window.smoothScrollToSection(targetId);
+        } else {
+          var target = document.getElementById(targetId);
+          if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
       }, 300);
     });
