@@ -52,6 +52,29 @@
   align-items: center;
   justify-content: center;
   color: var(--c-text);
+  cursor: pointer;
+  background: transparent;
+  border: 0;
+  border-radius: 50%;
+  transition: background-color .18s ease, transform .18s ease, opacity .18s ease;
+}
+.modal__close img,
+.modal__close svg {
+  transition: transform .18s ease;
+}
+.modal__close:hover {
+  background-color: rgba(0, 0, 0, .07);
+}
+.modal__close:hover img,
+.modal__close:hover svg {
+  transform: rotate(90deg);
+}
+.modal__close:active {
+  transform: scale(.92);
+}
+.modal__close:focus-visible {
+  outline: 2px solid var(--c-red);
+  outline-offset: 2px;
 }
 .modal__close svg { width: 14px; height: 14px; }
 .modal__title {
@@ -355,8 +378,24 @@
   position: relative;
   aspect-ratio: 16/10;
   background: #1c1c1c center/cover no-repeat;
+  overflow: hidden;
+}
+.modal--portfolio .pf-main-img__fade {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: 1;
+  transition: opacity 0.35s ease;
+  pointer-events: none;
+  z-index: 1;
+}
+.modal--portfolio .pf-main-img__fade.is-fading-out {
+  opacity: 0;
 }
 .modal--portfolio .pf-arrows {
+  z-index: 2;
   position: absolute;
   inset: 0;
   display: flex;
@@ -488,6 +527,13 @@
   border: 0;
   cursor: pointer;
   padding: 0;
+  transition: background-color .18s ease;
+}
+.menu-header__close:hover {
+  background: var(--c-red-hover);
+}
+.menu-header__close:active {
+  background: var(--c-red-hover);
 }
 .menu-header__close::before {
   content: "";
@@ -495,6 +541,10 @@
   height: 32px;
   background: url('../assets/icons/x-mark.svg') center/contain no-repeat;
   filter: brightness(0) invert(1);
+  transition: transform .18s ease;
+}
+.menu-header__close:hover::before {
+  transform: rotate(90deg);
 }
 .menu-header__logo {
   flex: 1;
