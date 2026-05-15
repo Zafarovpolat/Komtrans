@@ -102,8 +102,8 @@
   z-index: 100;
   opacity: 1;
   transform: translateY(0);
-  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
-              opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+              opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1);
 }
 /* Pre-entry: positioned off-screen with no transition so the next frame can animate in. */
 .site-header.is-sticky.is-sticky-entering {
