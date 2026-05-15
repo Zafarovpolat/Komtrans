@@ -1010,7 +1010,7 @@
 
     var triggered = false;
     var headerHeight = header.offsetHeight || 84;
-    var STICKY_TRANSITION_MS = 400;
+    var STICKY_TRANSITION_MS = 700;
     var leavingTimer = null;
 
     function showSticky() {
