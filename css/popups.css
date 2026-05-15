@@ -5,7 +5,8 @@
 .modal {
   position: fixed;
   inset: 0;
-  z-index: 100;
+  /* All modals (except the mobile menu, see below) sit above the burger menu */
+  z-index: 1100;
   display: flex;
   align-items: flex-start;
   justify-content: center;
@@ -497,7 +498,9 @@
 .modal--menu {
   padding: 0;
   align-items: flex-start;
-  /* Must sit above the sticky/fixed site header (z-index: 100). */
+  /* Above the sticky/fixed site header (z-index: 100) but BELOW other
+     modals so that opening the calculator or call form from inside the
+     burger menu stacks correctly on top of it. */
   z-index: 1000;
 }
 .modal--menu .modal__dialog {
