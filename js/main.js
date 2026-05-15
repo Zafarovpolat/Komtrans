@@ -194,6 +194,9 @@
     }
 
     m.classList.add('is-open');
+    // Lock page scroll. We lock both <html> and <body> so the page
+    // can't scroll behind the modal (especially the mobile burger menu).
+    document.documentElement.style.overflow = 'hidden';
     document.body.style.overflow = 'hidden';
 
     // Auto-focus first form input when a modal containing a form opens
@@ -218,6 +221,7 @@
       titleEl.textContent = titleEl.dataset.defaultTitle;
     }
     if (!document.querySelector('.modal.is-open')) {
+      document.documentElement.style.overflow = '';
       document.body.style.overflow = '';
     }
   }

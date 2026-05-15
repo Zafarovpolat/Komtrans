@@ -497,7 +497,8 @@
 .modal--menu {
   padding: 0;
   align-items: flex-start;
-  z-index: 90;
+  /* Must sit above the sticky/fixed site header (z-index: 100). */
+  z-index: 1000;
 }
 .modal--menu .modal__dialog {
   max-width: 100%;
