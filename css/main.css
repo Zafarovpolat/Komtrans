@@ -291,6 +291,10 @@ body {
   height: 16px;
   background: url("../assets/icons/arrow-up-right.svg") center/contain no-repeat;
   margin-left: auto;
+  transition: transform 0.25s ease;
+}
+.btn:hover::after {
+  transform: rotate(45deg);
 }
 .btn--block {
   display: flex;
@@ -302,6 +306,9 @@ body {
   right: 32px;
   top: 50%;
   transform: translateY(-50%);
+}
+.btn--block:hover::after {
+  transform: translateY(-50%) rotate(45deg);
 }
 .btn--ghost {
   background: transparent;
@@ -505,9 +512,13 @@ body {
   align-self: start;
   height: 22px;
   background: url("../assets/icons/arrow-up-right.svg") center/contain no-repeat;
+  transition: transform 0.25s ease;
 }
 .site-header__cta:hover {
   background: var(--c-red-hover);
+}
+.site-header__cta:hover::after {
+  transform: rotate(45deg);
 }
 
 /* Header on light backgrounds (404, privacy) */
@@ -1166,6 +1177,10 @@ body {
 .routes__go img {
   width: 22px;
   height: 22px;
+  transition: transform 0.25s ease;
+}
+.routes__go:hover img {
+  transform: rotate(45deg);
 }
 
 .routes__after {
