@@ -52,15 +52,16 @@
   clip-path: polygon(0 0, 100% 0, 100% 100%, 0 90%);
 }
 
-/* Background image layers for crossfade */
+/* Background image layers for crossfade (with parallax-friendly bg-position) */
 .fv-bg {
   position: absolute;
   top: 0; left: 0; right: 0; bottom: 0;
   background-size: cover;
-  background-position: center;
+  background-position: center calc(50% + var(--fv-bg-y, 0px));
   background-repeat: no-repeat;
   background-image: none;
   transition: opacity 0.55s ease;
+  will-change: background-position;
   z-index: 1;
 }
 .fv-bg--a {
@@ -330,12 +331,17 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   align-items: start;
+  --calc-bg-y: 0px;
 }
 .calc__inner::after {
   content: "";
   position: absolute;
   inset: 0;
-  background: url("../assets/img/calc-bg-steps.jpg") center/cover no-repeat;
+  background-image: url("../assets/img/calc-bg-steps.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center calc(50% + var(--calc-bg-y, 0px));
+  will-change: background-position;
   z-index: 0;
   clip-path: polygon(0 0, 100% 0, 100% calc(100% - 20%), calc(100% - 40%) 100%, 0 100%);
 }
