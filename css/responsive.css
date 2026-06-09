@@ -233,6 +233,7 @@
   }
 
   .features__head {
+    padding-top: 80px;
     grid-template-columns: 1fr;
   }
 
@@ -301,6 +302,15 @@
     flex-direction: column;
     align-items: start;
     gap: 16px;
+  }
+
+  .steps {
+    margin-top: 25px;
+  }
+
+  .garant,
+  .portfolio {
+    padding-top: 100px;
   }
 }
 
@@ -384,6 +394,10 @@
 
   .site-footer__right {
     grid-template-columns: 1fr;
+  }
+
+  .steps {
+    margin-top: 50px;
   }
 }
 
@@ -609,7 +623,7 @@
   }
 
   .features {
-    padding-bottom: 80px;
+    padding-bottom: 0px;
   }
 
   .features .section-tag {
@@ -617,7 +631,7 @@
   }
 
   .features__head {
-    padding-top: 40px;
+    padding-top: 70px;
     margin-bottom: 40px;
   }
 
@@ -651,7 +665,7 @@
   }
 
   .numbers {
-    padding-top: 0;
+    padding-top: 80px;
   }
 
   .numbers .section-tag {
@@ -800,7 +814,7 @@
 
   .steps {
     padding-top: 80px;
-    padding-bottom: 80px;
+    padding-bottom: 0px;
     margin-bottom: 0;
   }
 
@@ -847,7 +861,7 @@
   }
 
   .garant {
-    padding-top: 0;
+    padding-top: 80px;
     padding-bottom: 0;
     margin-bottom: 80px;
   }
@@ -885,7 +899,11 @@
     clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
     left: -24px;
     height: 1055px;
-    top: -205px;
+    top: -125px;
+  }
+
+  .portfolio {
+    padding-bottom: 0;
   }
 
   .portfolio .section-tag {
@@ -925,7 +943,8 @@
   }
 
   .reviews {
-    padding-top: 0;
+    padding-top: 80px;
+    padding-bottom: 0;
   }
 
   .portfolio__head > div:first-child,
@@ -970,7 +989,7 @@
   }
 
   .faq {
-    padding-top: 0;
+    padding-top: 80px;
     padding-bottom: 80px;
   }
 

@@ -924,36 +924,65 @@
     }
   });
 
-  // ---------- Mobile menu nav links — close menu then smooth scroll ----------
+  // ---------- Smooth scroll to anchor with header offset ----------
   (function () {
-    var menuModal = document.getElementById('modal-menu');
-    if (!menuModal) return;
+    var header = document.querySelector('.site-header');
 
-    menuModal.addEventListener('click', function (e) {
-      var link = e.target.closest('.menu-list a[href]');
+    function getHeaderOffset() {
+      if (!header) return 0;
+      return header.classList.contains('is-sticky') ? header.offsetHeight : 0;
+    }
+
+    function scrollToSection(targetId) {
+      var target = document.getElementById(targetId);
+      if (!target) return;
+
+      var offset = getHeaderOffset();
+      var targetRect = target.getBoundingClientRect();
+      var absoluteTop = window.pageYOffset + targetRect.top;
+
+      window.scrollTo({
+        top: absoluteTop - offset,
+        behavior: 'smooth'
+      });
+    }
+
+    // Desktop nav anchor links
+    document.addEventListener('click', function (e) {
+      var link = e.target.closest('a[href^="#"]');
       if (!link) return;
 
       var href = link.getAttribute('href');
-      // Only intercept hash links (in-page anchors)
-      if (!href || !href.startsWith('#')) return;
+      if (!href || !href.startsWith('#') || href === '#') return;
+
+      // Skip if inside mobile menu (handled separately below)
+      if (link.closest('#modal-menu')) return;
 
       e.preventDefault();
-
-      var targetId = href.slice(1);
-
-      // Close the menu first
-      closeModal(menuModal);
-
-      // Wait for the close animation to finish (matches modal transition: 0.28s)
-      setTimeout(function () {
-        if (typeof window.smoothScrollToSection === 'function') {
-          window.smoothScrollToSection(targetId);
-        } else {
-          var target = document.getElementById(targetId);
-          if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
-      }, 300);
+      scrollToSection(href.slice(1));
     });
+
+    // Mobile menu nav links — close menu then smooth scroll
+    var menuModal = document.getElementById('modal-menu');
+    if (menuModal) {
+      menuModal.addEventListener('click', function (e) {
+        var link = e.target.closest('.menu-list a[href]');
+        if (!link) return;
+
+        var href = link.getAttribute('href');
+        if (!href || !href.startsWith('#')) return;
+
+        e.preventDefault();
+
+        var targetId = href.slice(1);
+
+        closeModal(menuModal);
+
+        setTimeout(function () {
+          scrollToSection(targetId);
+        }, 300);
+      });
+    }
   }());
 
   // ---------- Header "Ещё" dropdown — click toggle on touch / keyboard ----------
